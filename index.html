@@ -25,7 +25,8 @@
         h2::after {
             content: ".";
             position: absolute;
-            right: 0;
+            left: 100%; /* Push dots to the right of the text */
+            margin-left: 5px; /* Adds some space between the text and the dots */
             animation: dot-blink 1.5s infinite steps(1);
         }
 
