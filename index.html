@@ -19,10 +19,13 @@
 
         h2 {
             display: inline-block;
+            position: relative;
         }
 
         h2::after {
             content: ".";
+            position: absolute;
+            right: -20px; /* Adjust position to be next to the text */
             animation: dot-blink 1s infinite steps(1);
         }
 
@@ -35,7 +38,7 @@
         }
 
         h3 {
-            font-size: 12px
+            font-size: 12px;
             font-family: Arial, sans-serif;
         }
         
