@@ -24,6 +24,7 @@
             border: none;
             cursor: pointer;
             margin-top: 20px;
+            margin-left: 10px;
         }
         button:hover {
             background-color: gray;
@@ -34,14 +35,18 @@
 
     <div>
         <h1 id="counter">0</h1>
-        <button onclick="incrementCounter()">Add 1</button>
+        <div>
+            <button onclick="incrementCounter(1)">Add 1</button>
+            <button onclick="incrementCounter(2)">Add 2</button>
+            <button onclick="incrementCounter(3)">Add 3</button>
+        </div>
     </div>
 
     <script>
         let count = 0;
 
-        function incrementCounter() {
-            count++;
+        function incrementCounter(amount) {
+            count += amount;
             document.getElementById('counter').textContent = count;
         }
     </script>
