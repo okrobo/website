@@ -17,9 +17,12 @@
             text-align: center;
         }
 
-        .dots {
+        h2 {
             display: inline-block;
-            font-size: 2em;
+        }
+
+        h2::after {
+            content: ".";
             animation: dot-blink 1.5s infinite steps(1);
         }
 
@@ -35,7 +38,7 @@
 <body>
     <div>
         <h1>Under Construction</h1>
-        <h2>Please wait<span class="dots"></span></h2>
+        <h2>Please wait</h2>
     </div>
 </body>
 </html>
