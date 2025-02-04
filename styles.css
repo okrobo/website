@@ -66,9 +66,17 @@ body {
 }
 
 #clock-container {
-    text-align: center;
-    font-family: Arial, sans-serif;
-    margin-top: 20px;
+    position: fixed; /* Fix the clock to the top */
+    top: 20px; /* Add some space from the top */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for exact centering */
+    background-color: black; /* Solid black background */
+    color: white; /* White text */
+    font-size: 1.5rem; /* Adjust font size */
+    padding: 10px 20px; /* Add padding for better spacing */
+    border-radius: 10px; /* Rounded corners */
+    text-align: center; /* Center text inside the container */
+    z-index: 1000; /* Ensure the clock appears above other content */
 }
 
 #clock {
