@@ -40,14 +40,15 @@
         }
 
 .menu {
-  color: white;
-  min-height: 100px;
-  border: 2px solid white;
-  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
-  width: 80%;
-  background-color: black;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 20px;
-  max-width: 500px;
+ background-color: red;
+ color: white;
+ min-height: 100px;
+ border: 2px solid white;
+ box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+ width: 80%;
+ background-color: black;
+ margin-left: auto;
+ margin-right: auto;
+ padding: 20px;
+ max-width: 500px;
 }
