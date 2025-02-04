@@ -55,7 +55,7 @@ h3, h4, h5 {
 
 /* Ensures Parent is Not Hiding It */
 body {
-    background-image: url(images/stars21.png);
+    background-image: url(images/stars21.png) !important;
     background-size: cover;
     font-family: Arial, sans-serif;
     display: flex;
