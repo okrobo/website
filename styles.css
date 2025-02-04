@@ -50,3 +50,12 @@
             font-size: 12px;
             font-family: Arial, sans-serif;
         }
+
+.menu {
+  width: 80%;
+  background-color: black;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  max-width: 500px;
+}
