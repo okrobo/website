@@ -1,6 +1,6 @@
 /* General reset and layout */
 body {
-    background-image: url(images/stars21.png) !important;
+    background-image: url(images/stars21.png);
     background-size: cover;
     font-family: Arial, sans-serif;
     margin: 0;
