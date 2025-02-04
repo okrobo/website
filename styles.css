@@ -4,7 +4,7 @@
         a:active { color: blue; }
         
         body {
-            background-image: url(https://okrobo.net/images/stars.png);
+            background-image: url(/images/stars.png);
             background-color: black;
             color: white;
             font-family: Arial, sans-serif;
