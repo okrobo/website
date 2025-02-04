@@ -1,29 +1,27 @@
+// Function to update the clock
 function updateClock() {
     const now = new Date();
-
-    // Format time in 12-hour format with AM/PM
-    let hours = now.getHours();
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    const seconds = now.getSeconds().toString().padStart(2, '0');
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
     const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12 || 12; // Convert 0 to 12-hour format
-
-    const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
-
+    
+    // Format time in 12-hour format
+    const formattedTime = `${(hours % 12 || 12)}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds} ${ampm}`;
+    
     // Format date as MMM/DD/YYYY
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const month = months[now.getMonth()];
-    const day = now.getDate().toString().padStart(2, '0');
+    const month = now.toLocaleString('default', { month: 'short' });
+    const day = now.getDate();
     const year = now.getFullYear();
-    const dateString = `${month}/${day}/${year}`;
-
-    // Update HTML elements
-    document.getElementById("clock").textContent = timeString;
-    document.getElementById("date").textContent = dateString;
+    const formattedDate = `${month}/${day < 10 ? '0' + day : day}/${year}`;
+    
+    // Update the clock and date in the HTML
+    document.getElementById('clock').textContent = formattedTime;
+    document.getElementById('date').textContent = formattedDate;
 }
 
-// Ensure script runs once DOM is fully loaded
-document.addEventListener("DOMContentLoaded", () => {
-    updateClock(); // Run immediately when page loads
-    setInterval(updateClock, 1000); // Update every second
-});
+// Call the updateClock function every 1000 milliseconds (1 second)
+setInterval(updateClock, 1000);
+
+// Initial call to display the time immediately when the page loads
+updateClock();
