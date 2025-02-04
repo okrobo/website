@@ -4,7 +4,7 @@
         a:active { color: blue; }
         
         body {
-            background-image: <img src="images/stars.png">
+            background-image: <img src="images/stars.png";
             background-color: black;
             color: white;
             font-family: Arial, sans-serif;
