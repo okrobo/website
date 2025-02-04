@@ -10,15 +10,17 @@ body {
 
 /* Clock Container */
 #clock-container {
-    position: fixed; /* Fix the clock to the top of the page */
-    top: 10px; /* Space from the top */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Adjust for perfect centering */
-    background-color: black; /* Solid black background */
-    color: white; /* White text */
-    padding: 10px 20px; /* Some padding */
-    border-radius: 10px; /* Rounded corners */
-    z-index: 1000; /* Ensure it's on top of other elements */
+    position: fixed !important;
+    top: 10px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background-color: black !important;
+    color: white !important;
+    font-size: 1.5rem !important;
+    padding: 10px 20px !important;
+    border-radius: 10px !important;
+    z-index: 1000 !important;
+    text-align: center !important;
 }
 
 /* Styling for clock and date */
