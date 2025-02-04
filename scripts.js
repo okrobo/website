@@ -22,6 +22,8 @@ function updateClock() {
     document.getElementById("date").textContent = dateString;
 }
 
-// Update the clock every second
-setInterval(updateClock, 1000);
-updateClock(); // Run immediately when page loads
+// Ensure script runs once DOM is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+    updateClock(); // Run immediately when page loads
+    setInterval(updateClock, 1000); // Update every second
+});
