@@ -20,8 +20,6 @@ function updateClock() {
     document.getElementById('date').textContent = formattedDate;
 }
 
-// Call the updateClock function every 1000 milliseconds (1 second)
 setInterval(updateClock, 1000);
 
-// Initial call to display the time immediately when the page loads
 updateClock();
