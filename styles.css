@@ -23,8 +23,8 @@ body {
 
 /* Clock Container */
 #clock-container {
-    background-color: black; /* Black background for clock */
-    color: white; /* White text for clock */
+    background-color: black !important; /* Black background for clock */
+    color: white !important; /* White text for clock */
     font-size: 1.5rem;
     border-radius: 10px;
     z-index: 1000;
@@ -50,8 +50,8 @@ body {
 
 /* Menu Section */
 .menu {
-    background-color: black; /* Black background for menu */
-    color: white; /* White text for menu */
+    background-color: black !important; /* Black background for menu */
+    color: white !important; /* White text for menu */
     border: 2px solid white; /* White border around menu */
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
     width: 80%;
