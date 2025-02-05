@@ -1,5 +1,10 @@
 /* General reset and layout */
 body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center; /* Center horizontally */
+    min-height: 100vh; /* Ensure it fills the viewport height */
     background-image: url(images/stars21.png);
     background-size: cover;
     font-family: Arial, sans-serif;
@@ -10,17 +15,15 @@ body {
 
 /* Clock Container */
 #clock-container {
-    position: fixed !important;
-    top: 10px !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    background-color: black !important;
-    color: white !important;
-    font-size: 1.5rem !important;
-    padding: 10px 20px !important;
-    border-radius: 10px !important;
-    z-index: 1000 !important;
-    text-align: center !important;
+    background-color: black;
+    color: white;
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    border-radius: 10px;
+    z-index: 1000;
+    text-align: center;
+    margin-top: 10px; /* Adds space from the top */
+    width: auto; /* Width adapts to content */
 }
 
 /* Styling for clock and date */
@@ -45,5 +48,4 @@ body {
     max-width: 500px;
     margin: 20px auto;
     padding: 20px;
-    margin-top: 60px;
 }
