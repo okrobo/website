@@ -33,6 +33,7 @@ body {
     z-index: 1000;
     text-align: center;
     border: 2px solid red; /* Red border for debugging */
+    margin-bottom: 40px;
 }
 
 /* Styling for clock and date */
