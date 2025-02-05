@@ -21,6 +21,8 @@ h3 {
     align-items: center; /* Center items vertically */
     justify-items: center; /* Center items horizontally */
     width: 100%;
+    background-color: black;
+    color: white;
 }
 
 /* Clock Container */
