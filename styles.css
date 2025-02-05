@@ -9,10 +9,8 @@ body {
     margin: 0;
     padding: 0;
     text-align: center;
+    color: black; /* Default text color is black for the body */
 }
-
-h3 {
-    font-size: 12px;
 
 /* Wrapper for Clock and Menu using Grid */
 .container {
@@ -21,19 +19,17 @@ h3 {
     align-items: center; /* Center items vertically */
     justify-items: center; /* Center items horizontally */
     width: 100%;
-    background-color: black;
-    color: white;
 }
 
 /* Clock Container */
 #clock-container {
-    background-color: black;
-    color: white;
+    background-color: black; /* Black background for clock */
+    color: white; /* White text for clock */
     font-size: 1.5rem;
     border-radius: 10px;
     z-index: 1000;
     text-align: center;
-    border: 2px solid white; /* Red border for debugging */
+    border: 2px solid white; /* White border around clock */
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
     margin-bottom: 5px; /* Reduced the margin here */
     font-family: Consolas, monospace;
@@ -54,9 +50,9 @@ h3 {
 
 /* Menu Section */
 .menu {
-    background-color: black;
-    color: white;
-    border: 2px solid white;
+    background-color: black; /* Black background for menu */
+    color: white; /* White text for menu */
+    border: 2px solid white; /* White border around menu */
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
     width: 80%;
     max-width: 500px;
