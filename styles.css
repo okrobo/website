@@ -32,20 +32,20 @@ body {
     border: 2px solid white; /* White border around clock */
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
     margin-bottom: 5px; /* Reduced the margin here */
-    font-family: Consolas, monospace;
+    font-family: Consolas, monospace !important;
 }
 
 /* Styling for clock and date */
 #clock {
     font-size: 2rem;
     font-weight: bold;
-    font-family: Consolas, monospace;
+    font-family: Consolas, monospace !important;
 }
 
 #date {
     font-size: 1.2rem;
     margin-top: 5px;
-    font-family: Consolas, monospace;
+    font-family: Consolas, monospace !important;
 }
 
 /* Menu Section */
