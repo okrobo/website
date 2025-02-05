@@ -13,6 +13,16 @@ body {
     text-align: center;
 }
 
+/* Wrapper for Clock and Menu */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center; /* Center the items horizontally */
+    width: 100%;
+    padding-top: 10px; /* Ensure some space from the top */
+}
+
 /* Clock Container */
 #clock-container {
     background-color: black;
@@ -22,8 +32,8 @@ body {
     border-radius: 10px;
     z-index: 1000;
     text-align: center;
-    margin-top: 10px; /* Adds space from the top */
     width: auto; /* Width adapts to content */
+    margin-top: 10px; /* Adds space from the top */
 }
 
 /* Styling for clock and date */
