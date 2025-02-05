@@ -1,9 +1,7 @@
 /* General reset and layout */
 body {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center; /* Center horizontally */
+    display: grid;
+    place-items: center; /* Centers content both vertically and horizontally */
     min-height: 100vh; /* Ensure it fills the viewport height */
     background-image: url(images/stars21.png);
     background-size: cover;
@@ -13,14 +11,14 @@ body {
     text-align: center;
 }
 
-/* Wrapper for Clock and Menu */
+/* Wrapper for Clock and Menu using Grid */
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center; /* Center the items horizontally */
+    display: grid;
+    grid-template-columns: 1fr; /* Single column layout */
+    gap: 20px; /* Spacing between the clock and menu */
+    align-items: center; /* Center items vertically */
+    justify-items: center; /* Center items horizontally */
     width: 100%;
-    gap: 20px; /* Ensures spacing between the clock and menu */
     margin-bottom: 20px;
 }
 
