@@ -37,7 +37,7 @@ body {
 
 /* Styling for clock and date */
 #clock {
-    font-size: 7rem;
+    font-size: 5rem;
     font-weight: bold;
     font-family: Consolas, monospace !important;
 }
