@@ -42,13 +42,13 @@ body {
 
 /* Styling for clock and date */
 #clock {
-    font-size: 5rem;
+    font-size: 4rem;
     font-weight: bold;
     font-family: Consolas, monospace !important;
 }
 
 #date {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-top: 5px;
     font-family: Consolas, monospace !important;
 }
