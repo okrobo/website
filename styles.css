@@ -38,11 +38,13 @@ body {
 #clock {
     font-size: 2rem;
     font-weight: bold;
+    font-family: Consolas, monospace;
 }
 
 #date {
     font-size: 1.2rem;
     margin-top: 5px;
+    font-family: Consolas, monospace;
 }
 
 /* Menu Section */
