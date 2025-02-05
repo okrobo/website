@@ -43,7 +43,6 @@ body {
 /* Styling for clock and date */
 #clock {
     font-size: 4rem;
-    font-weight: bold;
     font-family: Consolas, monospace !important;
 }
 
