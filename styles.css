@@ -21,6 +21,7 @@ body {
     align-items: center; /* Center the items horizontally */
     width: 100%;
     gap: 20px; /* Ensures spacing between the clock and menu */
+    margin-bottom: 20px;
 }
 
 /* Clock Container */
