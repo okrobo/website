@@ -20,7 +20,7 @@ body {
     justify-content: flex-start;
     align-items: center; /* Center the items horizontally */
     width: 100%;
-    padding-top: 10px; /* Ensure some space from the top */
+    padding-top: 20px; /* Increase space from the top */
 }
 
 /* Clock Container */
@@ -34,6 +34,7 @@ body {
     text-align: center;
     width: auto; /* Width adapts to content */
     margin-top: 10px; /* Adds space from the top */
+    margin-bottom: 20px; /* Adds space below the clock */
 }
 
 /* Styling for clock and date */
