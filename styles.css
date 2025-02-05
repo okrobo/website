@@ -29,7 +29,6 @@ body {
     border-radius: 10px;
     z-index: 1000;
     text-align: center;
-    border: 2px solid white; /* White border around clock */
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
     margin-bottom: 5px; /* Reduced the margin here */
     font-family: Consolas, monospace !important;
@@ -42,7 +41,7 @@ body {
 
 /* Styling for clock and date */
 #clock {
-    font-size: 4rem;
+    font-size: 3rem;
     font-family: Consolas, monospace !important;
 }
 
@@ -56,7 +55,7 @@ body {
 .menu {
     background-color: black !important; /* Black background for menu */
     color: white !important; /* White text for menu */
-    border: 2px solid white; /* White border around menu */
+    border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
     width: 80%;
     max-width: 500px;
