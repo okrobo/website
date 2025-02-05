@@ -31,8 +31,9 @@ body {
     border-radius: 10px;
     z-index: 1000;
     text-align: center;
-    border: 2px solid red; /* Red border for debugging */
-    margin-bottom: 40px;
+    border: 2px solid white; /* Red border for debugging */
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    margin-bottom: 10px;
 }
 
 /* Styling for clock and date */
@@ -55,5 +56,5 @@ body {
     width: 80%;
     max-width: 500px;
     padding: 20px;
-    margin-top: 80px;
+    margin-top: 10px;
 }
