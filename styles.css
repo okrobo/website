@@ -9,7 +9,7 @@ body {
     margin: 0;
     padding: 0;
     text-align: center;
-    color: black; /* Default text color is black for the body */
+    color: white; /* Default text color is black for the body */
 }
 
 /* Wrapper for Clock and Menu using Grid */
