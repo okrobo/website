@@ -13,21 +13,15 @@ body {
     position: relative; /* Ensure relative positioning to layer the video properly */
 }
 
-/* Fullscreen Video Background */
-.video-container {
-    position: fixed;
+/* Video Background */
+#video-background {
+    position: fixed; /* Keeps the video fixed in the background */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* Keeps the video behind the content */
-    overflow: hidden;
-}
-
-#video-background {
-    width: 100%;
-    height: 100%;
     object-fit: cover; /* Ensures the video covers the whole screen */
+    z-index: -1; /* Keeps the video behind the content */
 }
 
 /* Wrapper for Clock and Menu using Grid */
@@ -74,7 +68,7 @@ body {
     background-color: black !important; /* Black background for menu */
     color: white !important; /* White text for menu */
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 0px 10px rgba(255, 255, 0.5);
     width: 80%;
     max-width: 500px;
     padding: 10px;
