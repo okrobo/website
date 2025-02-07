@@ -23,3 +23,8 @@ function updateClock() {
 setInterval(updateClock, 1000);
 
 updateClock();
+
+function toggleSidebar(sidebarId) {
+    var sidebar = document.getElementById(sidebarId);
+    sidebar.classList.toggle('expanded'); // Toggle the 'expanded' class to show/hide content
+}
