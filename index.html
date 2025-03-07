@@ -31,17 +31,24 @@
     <div class="container">
         <div class="menu">
             <main>
-                <h1>Under Construction</h1>
-                <h2>Please wait</h2>
-                <h3>(also the block hot as hell)</h3>
-                <img src="images/theblockhotashell.jpg" alt="uhhhh haha uhhhhhmmm uhhhhhhhhhh" width="200" height="200" />
-                <h4>
-                <img src="images/ag1.png" width="64" height="64" />
-                <img src="images/ag2.png" width="64" height="64" />
-                </h4>
-                <h5>
-                <a href="template.html">link to template</a>
-                </h5>
+                <!-- Editable Text Box -->
+                <textarea id="text-box" placeholder="Enter your text here..." rows="4" cols="50"></textarea>
+
+                <!-- Removed Text Formatting Toolbar -->
+                <!-- 
+                <div class="text-toolbar">
+                    <button class="format-button" id="bold-btn"><b>B</b></button>
+                    <button class="format-button" id="italic-btn"><i>I</i></button>
+                    <button class="format-button" id="strike-btn"><del>S</del></button>
+                    <button class="format-button" id="bullet-btn">•</button>
+                    <button class="format-button" id="underline-btn"><u>U</u></button>
+                    <button class="format-button" id="link-btn">🔗</button>
+                </div>
+                -->
+
+                <h1>
+                    <a href="template.html">link to template</a>
+                </h1>
             </main>
         </div>
     </div>
@@ -79,6 +86,14 @@
         <a href="#">Item 6</a>
         <a href="#">Item 7</a>
     </div>
+
+    <script>
+        // Toggle function for sidebar expansion
+        function toggleSidebar(sidebarId) {
+            const sidebar = document.getElementById(sidebarId);
+            sidebar.classList.toggle('expanded');
+        }
+    </script>
 
 </body>
 
