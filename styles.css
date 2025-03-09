@@ -9,6 +9,7 @@ body {
     height: 100vh;
 }
 
+/* Video Background */
 .video-container {
     position: fixed;
     top: 0;
@@ -16,16 +17,21 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
-    overflow: hidden;
+    transition: background 0.5s ease-in-out;
+    background-image: url('images/stars21.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 #video-background {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    display: block;
 }
 
+/* Main Content Container */
 .container {
     display: grid;
     grid-template-columns: 1fr;
@@ -36,276 +42,158 @@ body {
     z-index: 1;
 }
 
+/* Clock Styles */
 #clock-container {
     background-color: rgba(0, 0, 0, 0.75);
-    color: white;
-    font-size: 1.5rem;
-    border-radius: 10px;
-    z-index: 1000;
+    border: 0px solid rgba(255, 255, 255, 0.5);
+    padding: 20px;
     text-align: center;
+    border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    font-size: 1.5rem;
     margin-top: 75px;
-    font-family: Consolas, monospace;
-    padding: 20px 40px;
-    width: auto;
-    min-width: 250px;
-    height: auto;
-    min-height: 100px;
 }
 
 #clock {
     font-size: 3rem;
-    font-family: Consolas, monospace;
 }
 
 #date {
     font-size: 1.5rem;
-    margin-top: 5px;
-    font-family: Consolas, monospace;
 }
 
-/* Menu Styling */
+/* Menu Styles - Restored Borders */
 .menu {
     background-color: rgba(0, 0, 0, 0.75);
-    color: white;
+    border: 0px solid rgba(255, 255, 255, 0.5);
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
-    width: 40%; /* Make the .menu take up 90% of the screen width */
-    max-width: 40%; /* Ensure the menu doesn't exceed 90% of the screen */
     padding: 10px;
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     text-align: center;
+    width: auto; min-width: 40%; max-width: 100%; display: flex; flex-direction: column; align-items: center;
+    max-width: 40%;
+    margin-top: 40px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
 }
 
-/* Make sure <main> scales with the width of .menu */
-main {
-    width: 100%; /* Full width of its parent container (.menu) */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Textbox Styling */
+/* Textbox Styling - Transparent Background & White Text */
 textarea {
-    background-color: rgba(0, 0, 0, 0.75); /* Transparent black background */
-    color: white; /* White text */
-    border: 0px solid rgba(255, 255, 255, 0.5); /* Light border */
-    border-radius: 10px; /* Rounded corners */
-    padding: 10px;
+    background-color: transparent;
+    color: white;
+    border: 0px;
+    border-radius: 0px;
+    padding: 0px;
     font-family: Consolas, monospace;
     font-size: 1rem;
-    width: 100%; /* Full width of <main> */
-    max-width: 100%; /* Ensure it doesn't exceed the parent width */
-    height: 200px; /* Default larger height */
-    resize: vertical; /* Allow vertical resizing */
-    margin-bottom: 20px; /* Space below the text box */
-    box-sizing: border-box; /* Include padding and border in width calculation */
+    width: 100%;
+    max-width: 100%;
+    height: 400px;
+    resize: vertical;
+    box-sizing: border-box;
 }
 
-
-/* Style for the Formatting Toolbar */
-.text-toolbar {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
+textarea:focus {
+    outline: none;
+    border: 0px;
 }
 
-.format-button {
-    background-color: rgba(0, 0, 0, 0.75); /* Transparent black background */
-    color: white; /* White text */
-    border: 1px solid rgba(255, 255, 255, 0.5); /* Light border */
-    border-radius: 5px;
-    padding: 10px 15px;
-    font-size: 1.2rem;
+/* Toggle Background Button Styling */
+#toggle-wallpaper-btn {
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    font-size: 16px;
+    font-family: Consolas, monospace;
+    padding: 12px 24px;
+    border: 0px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    border-radius: 8px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease-in-out, transform 0.2s;
+    box-shadow: 0px 0px 0px rgba(255, 255, 255, 0.5);
 }
 
-/* Formatting Button Hover Effect */
-.format-button:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* Lighten the button */
-    transform: scale(1.1); /* Slightly enlarge the button */
+#toggle-wallpaper-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
 }
 
-/* Static Sidebar Styles (Left Sidebar) */
-.sidebar {
+/* Heading Styling */
+h1 {
+    font-size: 12px;
+}
+
+/* Sidebar Styles - Fully Fixed */
+.sidebar, .sidebar-right {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 50px; /* Default narrow width */
+    width: 50px;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.75); /* Transparent background */
+    background-color: rgba(0, 0, 0, 0.75);
     color: white;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
-    padding: 10px 0; /* Default narrow padding */
+    padding: 10px 0;
+    z-index: 100;
+    transition: width 0.3s ease-in-out;
     display: flex;
-    flex-direction: column; /* Items stacked vertically */
-    align-items: center; /* Center everything in the sidebar */
-    z-index: 100; /* Make sure the sidebar is on top */
-    transition: width 0.2s ease-in-out, padding 0.2s ease-in-out; /* Updated transition for both width and padding */
+    flex-direction: column;
+    align-items: center;
 }
 
-/* When sidebar is expanded, change width and padding */
-.sidebar.expanded {
-    width: 200px; /* Expanded width */
-    padding: 20px 0; /* Padding to make space for links */
+.sidebar {
+    left: 0;
+    border-right: 2px solid rgba(255, 255, 255, 0.5);
 }
 
-/* Sidebar Header */
-.sidebar-header {
-    width: 80%; /* Reduced width from 100% to 80% */
-    font-size: 1rem; /* Smaller size for the collapsed state */
+.sidebar-right {
+    right: 0;
+    border-left: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.sidebar.expanded, .sidebar-right.expanded {
+    width: 200px;
+    padding: 20px 0;
+    align-items: center;
+}
+
+/* Sidebar Header & Links */
+.sidebar-header, .sidebar-right-header {
+    font-size: 1rem;
     font-weight: bold;
-    color: white;
-    text-align: center; /* Center the text */
-    padding: 2px; /* Further reduced padding */
-    margin-bottom: 40px; /* Added 20px to the bottom margin */
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5); /* Apply shadow */
-    visibility: hidden; /* Hidden by default */
-    opacity: 0; /* Hidden by default with no opacity */
-    margin-top: 20px; /* Ensure some space above the header */
-    transition: opacity 0.5s ease 0.2s, padding 0.2s ease, font-size 0.3s ease; /* Fade-in effect with 0.2s delay */
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.2s;
+    margin-bottom: 20px;
 }
 
-/* When sidebar is expanded, change header visibility, size, and position */
-.sidebar.expanded .sidebar-header {
-    visibility: visible; /* Make it visible when expanded */
-    opacity: 1; /* Fully visible */
-    font-size: 1.5rem; /* Larger font size when expanded */
-    padding: 5px; /* Reduced padding in expanded state */
-    margin-top: 30px; /* Space between header and hamburger icon */
-    width: 60%; /* Reduced width to 60% when expanded */
-    text-align: center; /* Center the text */
+.sidebar.expanded .sidebar-header, .sidebar-right.expanded .sidebar-right-header {
+    opacity: 1;
 }
 
-/* Sidebar Links */
-.sidebar a {
+.sidebar a, .sidebar-right a {
     color: white;
     text-decoration: none;
     font-size: 1.2rem;
-    margin-bottom: 20px;
-    transition: color 0.3s ease, transform 0.3s ease, opacity 0.5s ease 0.2s; /* Added opacity transition with 0.2s delay */
-    text-align: center; /* Ensure text is centered */
+    margin-bottom: 10px;
+    text-align: center;
     padding: 10px;
     border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5); /* Drop shadow for each item */
-    visibility: hidden; /* Hidden by default */
-    opacity: 0; /* Hidden by default */
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    transition: opacity 0.5s ease 0.2s;
 }
 
-/* When sidebar is expanded, show the links and header */
-.sidebar.expanded .sidebar-header,
-.sidebar.expanded a {
-    visibility: visible; /* Make them visible when sidebar is expanded */
-    opacity: 1; /* Fully visible */
+.sidebar.expanded a, .sidebar-right.expanded a {
+    opacity: 1;
 }
 
-/* Sidebar Links Hover Effect */
-.sidebar a:hover {
-    transform: scale(1.1); /* Scale up the item by 10% */
-    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.7); /* Add stronger shadow for the "pop-out" effect */
+/* Sidebar Hover Effect */
+.sidebar a:hover, .sidebar-right a:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.7);
 }
 
-/* Hamburger Menu (Three vertical lines) */
+/* Hamburger Menu */
 .hamburger-menu {
     font-size: 30px;
     color: white;
     cursor: pointer;
     padding: 10px;
-    margin: 10px;
-    display: block;
-    visibility: visible; /* Always visible */
-    transition: background-color 0.3s ease; /* Smooth transition for color */
-}
-
-/* When the sidebar is expanded, change hamburger icon color */
-.sidebar.expanded .hamburger-menu {
-    background-color: rgba(255, 255, 255, 0.2); /* Change to a darker gray when open */
-}
-
-/* Static Right Sidebar Styles (Right Sidebar) */
-.sidebar-right {
-    position: fixed;
-    top: 0;
-    right: 0; /* Position the right sidebar on the right */
-    width: 50px; /* Default narrow width */
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.75); /* Transparent background */
-    color: white;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
-    padding: 10px 0; /* Default narrow padding */
-    display: flex;
-    flex-direction: column; /* Items stacked vertically */
-    align-items: center; /* Center everything in the sidebar */
-    z-index: 100; /* Make sure the sidebar is on top */
-    transition: width 0.2s ease-in-out, padding 0.2s ease-in-out; /* Updated transition for both width and padding */
-}
-
-/* When the right sidebar is expanded, change width and padding */
-.sidebar-right.expanded {
-    width: 200px; /* Expanded width */
-    padding: 20px 0; /* Padding to make space for links */
-}
-
-/* Right Sidebar Header */
-.sidebar-right-header {
-    width: 80%; /* Reduced width from 100% to 80% */
-    font-size: 1rem; /* Smaller size for the collapsed state */
-    font-weight: bold;
-    color: white;
-    text-align: center; /* Center the text */
-    padding: 2px; /* Further reduced padding */
-    margin-bottom: 40px; /* Added 20px to the bottom margin */
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5); /* Apply shadow */
-    visibility: hidden; /* Hidden by default */
-    opacity: 0; /* Hidden by default with no opacity */
-    margin-top: 20px; /* Ensure some space above the header */
-    transition: opacity 0.5s ease 0.2s, padding 0.2s ease, font-size 0.3s ease; /* Fade-in effect with 0.2s delay */
-}
-
-/* When the right sidebar is expanded, change header visibility, size, and position */
-.sidebar-right.expanded .sidebar-right-header {
-    visibility: visible; /* Make it visible when expanded */
-    opacity: 1; /* Fully visible */
-    font-size: 1.5rem; /* Larger font size when expanded */
-    padding: 5px; /* Reduced padding in expanded state */
-    margin-top: 30px; /* Space between header and hamburger icon */
-    width: 60%; /* Reduced width to 60% when expanded */
-    text-align: center; /* Center the text */
-}
-
-/* Right Sidebar Links */
-.sidebar-right a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    transition: color 0.3s ease, transform 0.3s ease, opacity 0.5s ease 0.2s; /* Added opacity transition with 0.2s delay */
-    text-align: center; /* Ensure text is centered */
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5); /* Drop shadow for each item */
-    visibility: hidden; /* Hidden by default */
-    opacity: 0; /* Hidden by default */
-}
-
-/* When the right sidebar is expanded, show the links and header */
-.sidebar-right.expanded .sidebar-right-header,
-.sidebar-right.expanded a {
-    visibility: visible; /* Make them visible when sidebar is expanded */
-    opacity: 1; /* Fully visible */
-}
-
-/* Right Sidebar Links Hover Effect */
-.sidebar-right a:hover {
-    transform: scale(1.1); /* Scale up the item by 10% */
-    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.7); /* Add stronger shadow for the "pop-out" effect */
 }

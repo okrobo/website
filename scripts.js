@@ -1,55 +1,53 @@
-// Function to update the clock
-function updateClock() {
-    const now = new Date();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const seconds = now.getSeconds();
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    
-    // Format time in 12-hour format
-    const formattedTime = `${(hours % 12 || 12)}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds} ${ampm}`;
-    
-    // Format date as MMM/DD/YYYY
-    const month = now.toLocaleString('default', { month: 'short' });
-    const day = now.getDate();
-    const year = now.getFullYear();
-    const formattedDate = `${month}/${day < 10 ? '0' + day : day}/${year}`;
-    
-    // Update the clock and date in the HTML
-    document.getElementById('clock').textContent = formattedTime;
-    document.getElementById('date').textContent = formattedDate;
-}
+document.addEventListener("DOMContentLoaded", function () {
+    /* 📌 Clock Function */
+    function updateClock() {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
 
-setInterval(updateClock, 1000);
+        const formattedTime = `${(hours % 12 || 12)}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${ampm}`;
+        const formattedDate = now.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
 
-updateClock();
+        document.getElementById('clock').textContent = formattedTime;
+        document.getElementById('date').textContent = formattedDate;
+    }
 
-function toggleSidebar(sidebarId) {
-    var sidebar = document.getElementById(sidebarId);
-    sidebar.classList.toggle('expanded'); // Toggle the 'expanded' class to show/hide content
-}
+    setInterval(updateClock, 1000);
+    updateClock();
 
-document.getElementById('bold-btn').addEventListener('click', function() {
-    document.execCommand('bold');
-});
+    /* 📌 Sidebar Toggle Function */
+    function toggleSidebar(sidebarId) {
+        const sidebar = document.getElementById(sidebarId);
+        if (!sidebar) {
+            console.error(`Sidebar ${sidebarId} not found!`);
+            return;
+        }
+        sidebar.classList.toggle('expanded');
+    }
 
-document.getElementById('italic-btn').addEventListener('click', function() {
-    document.execCommand('italic');
-});
+    document.querySelector(".sidebar .hamburger-menu").addEventListener("click", function () {
+        toggleSidebar("sidebar");
+    });
 
-document.getElementById('strike-btn').addEventListener('click', function() {
-    document.execCommand('strikeThrough');
-});
+    document.querySelector(".sidebar-right .hamburger-menu").addEventListener("click", function () {
+        toggleSidebar("sidebar-right");
+    });
 
-document.getElementById('bullet-btn').addEventListener('click', function() {
-    document.execCommand('insertUnorderedList');
-});
+    /* 📌 Toggle Background Function */
+    const video = document.getElementById("video-background");
+    const videoContainer = document.querySelector(".video-container");
+    const toggleButton = document.getElementById("toggle-wallpaper-btn");
 
-document.getElementById('underline-btn').addEventListener('click', function() {
-    document.execCommand('underline');
-});
+    let isVideoVisible = true;
 
-document.getElementById('link-btn').addEventListener('click', function() {
-    let url = prompt("Enter the link URL:");
-    document.execCommand('createLink', false, url);
+    toggleButton.addEventListener("click", function () {
+        if (isVideoVisible) {
+            video.style.display = "none";
+        } else {
+            video.style.display = "block";
+        }
+        isVideoVisible = !isVideoVisible;
+    });
 });

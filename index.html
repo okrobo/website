@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>okrobo.net</title>
-    <link rel="stylesheet" href="styles.css?7">
-    <script src="scripts.js?1" defer></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
 </head>
 
 <body>
@@ -31,70 +30,36 @@
     <div class="container">
         <div class="menu">
             <main>
-                <!-- Editable Text Box -->
                 <textarea id="text-box" placeholder="Enter your text here..." rows="4" cols="50"></textarea>
-
-                <!-- Removed Text Formatting Toolbar -->
-                <!-- 
-                <div class="text-toolbar">
-                    <button class="format-button" id="bold-btn"><b>B</b></button>
-                    <button class="format-button" id="italic-btn"><i>I</i></button>
-                    <button class="format-button" id="strike-btn"><del>S</del></button>
-                    <button class="format-button" id="bullet-btn">•</button>
-                    <button class="format-button" id="underline-btn"><u>U</u></button>
-                    <button class="format-button" id="link-btn">🔗</button>
-                </div>
-                -->
-
-                <h1>
-                    <a href="template.html">link to template</a>
-                </h1>
+             
             </main>
         </div>
+		
+		<!-- Template Menu (New) -->
+    
+        <h1><a href="template.html">link to template</a></h1>
+
+        <!-- Toggle Wallpaper Button -->
+        <button id="toggle-wallpaper-btn">Toggle Wallpaper</button>
     </div>
 
-    <!-- Static Left Sidebar -->
+    <!-- Sidebars -->
     <div class="sidebar" id="sidebar">
-        <div class="hamburger-menu" onclick="toggleSidebar('sidebar')">
-            &#9776; <!-- Hamburger icon for the left sidebar -->
-        </div>
-        <div class="sidebar-header">
-            Sidebar
-        </div>
+        <div class="hamburger-menu" onclick="toggleSidebar('sidebar')">&#9776;</div>
+        <div class="sidebar-header">Sidebar</div>
         <a href="#">Item 1</a>
         <a href="#">Item 2</a>
         <a href="#">Item 3</a>
-        <a href="#">Item 4</a>
-        <a href="#">Item 5</a>
-        <a href="#">Item 6</a>
-        <a href="#">Item 7</a>
+        <a href="#">Item 4</a> <!-- New Item Added -->
     </div>
 
-    <!-- Static Right Sidebar -->
     <div class="sidebar-right" id="sidebar-right">
-        <div class="hamburger-menu" onclick="toggleSidebar('sidebar-right')">
-            &#9776; <!-- Hamburger icon for the right sidebar -->
-        </div>
-        <div class="sidebar-right-header">
-            Sidebar
-        </div>
+        <div class="hamburger-menu" onclick="toggleSidebar('sidebar-right')">&#9776;</div>
+        <div class="sidebar-right-header">Sidebar</div>
         <a href="#">Item 1</a>
         <a href="#">Item 2</a>
         <a href="#">Item 3</a>
-        <a href="#">Item 4</a>
-        <a href="#">Item 5</a>
-        <a href="#">Item 6</a>
-        <a href="#">Item 7</a>
     </div>
-
-    <script>
-        // Toggle function for sidebar expansion
-        function toggleSidebar(sidebarId) {
-            const sidebar = document.getElementById(sidebarId);
-            sidebar.classList.toggle('expanded');
-        }
-    </script>
 
 </body>
-
 </html>
