@@ -51,3 +51,23 @@ document.addEventListener("DOMContentLoaded", function () {
         isVideoVisible = !isVideoVisible;
     });
 });
+
+// Function to check the entered word
+function checkPassword() {
+  var userInput = document.getElementById("passwordInput").value;
+  var correctPassword = "twentyone";  // The specific word to validate
+
+  // Check if the entered word matches the correct password
+  if (userInput === correctPassword) {
+    // Redirect to another page if the word is correct
+    window.location.href = "main.html";  // Replace with your desired page URL
+  } else {
+    // If the word is incorrect, reload the current page
+    alert("Incorrect word. Try again.");
+    window.location.href = window.location.href;  // Reload current page
+  }
+}
+
+if (!toggleButton) {
+    console.error("Toggle Wallpaper Button not found in index.html");
+}

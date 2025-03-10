@@ -28,37 +28,19 @@
     </div>
 
     <div class="container">
-        <div class="menu">
+        <div class="menu" style="margin-top: 100px; min-width: 25%;">
             <main>
-                <textarea id="text-box" placeholder="Enter your text here..." rows="4" cols="50"></textarea>
-             
+                <h1 style="font-size: 14px;">Enter Password:</h1>
+                    <form onsubmit="event.preventDefault(); checkPassword();"
+                          <<label for="passwordInput"></label>
+                            <input type="text" id="passwordInput" required>
+                            <button type="submit">Go</button>
+                    </form>
+                <h2> </h2>
+
             </main>
         </div>
-		
-		<!-- Template Menu (New) -->
-    
-        <h1><a href="template.html">link to template</a></h1>
 
-        <!-- Toggle Wallpaper Button -->
-        <button id="toggle-wallpaper-btn">Toggle Wallpaper</button>
-    </div>
-
-    <!-- Sidebars -->
-    <div class="sidebar" id="sidebar">
-        <div class="hamburger-menu" onclick="toggleSidebar('sidebar')">&#9776;</div>
-        <div class="sidebar-header">Sidebar</div>
-        <a href="#">Item 1</a>
-        <a href="#">Item 2</a>
-        <a href="#">Item 3</a>
-        <a href="#">Item 4</a> <!-- New Item Added -->
-    </div>
-
-    <div class="sidebar-right" id="sidebar-right">
-        <div class="hamburger-menu" onclick="toggleSidebar('sidebar-right')">&#9776;</div>
-        <div class="sidebar-right-header">Sidebar</div>
-        <a href="#">Item 1</a>
-        <a href="#">Item 2</a>
-        <a href="#">Item 3</a>
     </div>
 
 </body>
