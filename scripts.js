@@ -27,12 +27,32 @@ document.addEventListener("DOMContentLoaded", function () {
         sidebar.classList.toggle('expanded');
     }
 
+    // Debugging log to check if sidebar elements exist
+    console.log("Sidebar elements:", document.querySelector(".sidebar .hamburger-menu"));
+    console.log("Sidebar-right elements:", document.querySelector(".sidebar-right .hamburger-menu"));
+
+    const hamburgerLeft = document.querySelector(".sidebar .hamburger-menu");
+    const hamburgerRight = document.querySelector(".sidebar-right .hamburger-menu");
+
+    if (hamburgerLeft) {
+        hamburgerLeft.addEventListener("click", function () {
+            toggleSidebar("sidebar");
+        });
+    } else {
+        console.error("Left sidebar hamburger menu not found");
+    }
+
+    if (hamburgerRight) {
+        hamburgerRight.addEventListener("click", function () {
+            toggleSidebar("sidebar-right");
+        });
+    } else {
+        console.error("Right sidebar hamburger menu not found");
+    }
+
     // 📌 Check if the toggle wallpaper button and video element exist
     const toggleButton = document.getElementById("toggle-wallpaper-btn");
     const video = document.getElementById("video-background");
-
-    console.log("Toggle Button:", toggleButton);  // Debugging line
-    console.log("Video Element:", video);        // Debugging line
 
     if (!toggleButton) {
         console.error("Toggle Wallpaper Button not found in index.html");
@@ -48,7 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let isVideoVisible = true;
 
     toggleButton.addEventListener("click", function () {
-        console.log("Button clicked!");  // Debugging line
         if (isVideoVisible) {
             video.style.display = "none";
         } else {
@@ -56,7 +75,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         isVideoVisible = !isVideoVisible;
     });
-
 });
 
 // Function to check the entered word
