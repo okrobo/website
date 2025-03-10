@@ -27,10 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         sidebar.classList.toggle('expanded');
     }
 
-    // Debugging log to check if sidebar elements exist
-    console.log("Sidebar elements:", document.querySelector(".sidebar .hamburger-menu"));
-    console.log("Sidebar-right elements:", document.querySelector(".sidebar-right .hamburger-menu"));
-
+    // 📌 Hamburger Menu Event Listeners for Left and Right Sidebars
     const hamburgerLeft = document.querySelector(".sidebar .hamburger-menu");
     const hamburgerRight = document.querySelector(".sidebar-right .hamburger-menu");
 
@@ -50,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Right sidebar hamburger menu not found");
     }
 
-    // 📌 Check if the toggle wallpaper button and video element exist
+    // 📌 Toggle Wallpaper Button Functionality
     const toggleButton = document.getElementById("toggle-wallpaper-btn");
     const video = document.getElementById("video-background");
 
@@ -75,20 +72,52 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         isVideoVisible = !isVideoVisible;
     });
-});
 
-// Function to check the entered word
-function checkPassword() {
-    var userInput = document.getElementById("passwordInput").value;
-    var correctPassword = "twentyone";  // The specific word to validate
+    // 📌 On-Screen Keyboard Functionality
+    const passwordInput = document.getElementById("passwordInput");
+    const keyboardButtons = document.querySelectorAll("#keyboard .key");
 
-    // Check if the entered word matches the correct password
-    if (userInput === correctPassword) {
-        // Redirect to another page if the word is correct
-        window.location.href = "main.html";  // Replace with your desired page URL
-    } else {
-        // If the word is incorrect, reload the current page
-        alert("Incorrect word. Try again.");
-        window.location.href = window.location.href;  // Reload current page
+    // Add click event listener to each keyboard key
+    keyboardButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const key = this.getAttribute("data-key");
+
+            if (key === "backspace") {
+                // Remove the last character from the input field
+                passwordInput.value = passwordInput.value.slice(0, -1);
+            } else if (key === "submit") {
+                checkPassword();
+            } else {
+                // Add the clicked key to the input field
+                passwordInput.value += key;
+            }
+        });
+    });
+
+    // 📌 Password Validation Function
+    function checkPassword() {
+        var userInput = document.getElementById("passwordInput").value;
+        var correctPassword = "twentyone";  // The specific word to validate
+
+        // Check if the entered word matches the correct password
+        if (userInput === correctPassword) {
+            // Redirect to another page if the word is correct
+            window.location.href = "main.html";  // Replace with your desired page URL
+        } else {
+            // If the word is incorrect, reload the current page
+            alert("Incorrect passcode.");
+            window.location.href = window.location.href;  // Reload current page
+        }
     }
-}
+
+    // 📌 Event Listener for Submit Button (password check)
+    const submitButton = document.querySelector("button[type='submit']");
+    if (submitButton) {
+        submitButton.addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent form submission
+            checkPassword();
+        });
+    } else {
+        console.error("Submit button not found.");
+    }
+});

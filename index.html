@@ -28,21 +28,41 @@
     </div>
 
     <div class="container">
-        <div class="menu" style="margin-top: 100px; min-width: 25%;">
+        <div class="menu" style="margin-top: 40px; min-width: 20%; padding-bottom: 10px;">
             <main>
                 <h1 style="font-size: 14px;">Enter Password:</h1>
-                    <form autocomplete="off" onsubmit="event.preventDefault(); checkPassword();"
-                          <label for="passwordInput"></label>
-                            <input type="text" id="passwordInput" required>
-                            <button type="submit">Go</button>
-                    </form>
-                <h2> </h2>
+                <form autocomplete="off" onsubmit="event.preventDefault(); checkPassword();">
+                    <label for="passwordInput"></label>
+                    <input type="password" id="passwordInput" required>
+                </form>
+
+                <!-- On-Screen Keyboard -->
+                <div id="keyboard">
+                    <div class="row">
+                        <button class="key" data-key="1">1</button>
+                        <button class="key" data-key="2">2</button>
+                        <button class="key" data-key="3">3</button>
+                    </div>
+                    <div class="row">
+                        <button class="key" data-key="4">4</button>
+                        <button class="key" data-key="5">5</button>
+                        <button class="key" data-key="6">6</button>
+                    </div>
+                    <div class="row">
+                        <button class="key" data-key="7">7</button>
+                        <button class="key" data-key="8">8</button>
+                        <button class="key" data-key="9">9</button>
+                    </div>
+                    <div class="row">
+                        <button class="key" data-key="backspace">Del</button>
+                        <button class="key" data-key="0">0</button>
+                        <button class="key" data-key="submit">Go</button>
+                    </div>
+                </div>
 
             </main>
-
         </div>
-         <button id="toggle-wallpaper-btn">Toggle Background</button>
-
+        <button id="toggle-wallpaper-btn">Toggle Background</button>
     </div>
 
 </body>

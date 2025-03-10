@@ -45,7 +45,7 @@ body {
 /* Clock Styles */
 #clock-container {
     background-color: rgba(0, 0, 0, 0.75);
-    border: 0px solid rgba(255, 255, 255, 0.5);
+    border: 0px solid rgba(255, 255, 0.5);
     padding: 20px;
     text-align: center;
     border-radius: 10px;
@@ -62,20 +62,25 @@ body {
     font-size: 1.5rem;
 }
 
-/* Menu Styles - Restored Borders */
+/* Menu Styles */
 .menu {
     background-color: rgba(0, 0, 0, 0.75);
     border: 0px solid rgba(255, 255, 255, 0.5);
     border-radius: 10px;
     padding: 10px;
     text-align: center;
-    width: auto; min-width: 40%; max-width: 100%; display: flex; flex-direction: column; align-items: center;
-    max-width: 40%;
+    width: auto;
+    min-width: 40%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Ensures the content inside the menu is centered vertically */
     margin-top: 40px;
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
 }
 
-/* Textbox Styling - Transparent Background & White Text */
+/* Textbox Styling */
 textarea {
     background-color: transparent;
     color: white;
@@ -96,7 +101,7 @@ textarea:focus {
     border: 0px;
 }
 
-/* Toggle Background Button Styling */
+/* Toggle Button */
 #toggle-wallpaper-btn {
     background-color: rgba(0, 0, 0, 0.75);
     color: white;
@@ -111,194 +116,12 @@ textarea:focus {
     box-shadow: 0px 0px 0px rgba(255, 255, 255, 0.5);
 }
 
-#toggle-wallpaper-btn:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
-}
-
-/* Heading Styling */
+/* Heading */
 h1 {
     font-size: 12px;
 }
 
-/* Static Sidebar Styles (Left Sidebar) */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 50px; /* Default narrow width */
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.75); /* Transparent background */
-    color: white;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
-    padding: 10px 0; /* Default narrow padding */
-    display: flex;
-    flex-direction: column; /* Items stacked vertically */
-    align-items: center; /* Center everything in the sidebar */
-    z-index: 100; /* Make sure the sidebar is on top */
-    transition: width 0.2s ease-in-out, padding 0.2s ease-in-out; /* Updated transition for both width and padding */
-}
-
-/* When sidebar is expanded, change width and padding */
-.sidebar.expanded {
-    width: 200px; /* Expanded width */
-    padding: 20px 0; /* Padding to make space for links */
-}
-
-/* Sidebar Header */
-.sidebar-header {
-    width: 80%; /* Reduced width from 100% to 80% */
-    font-size: 1rem; /* Smaller size for the collapsed state */
-    font-weight: bold;
-    color: white;
-    text-align: center; /* Center the text */
-    padding: 2px; /* Further reduced padding */
-    margin-bottom: 40px; /* Added 20px to the bottom margin */
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5); /* Apply shadow */
-    visibility: hidden; /* Hidden by default */
-    opacity: 0; /* Hidden by default with no opacity */
-    margin-top: 20px; /* Ensure some space above the header */
-    transition: opacity 0.5s ease 0.2s, padding 0.2s ease, font-size 0.3s ease; /* Fade-in effect with 0.2s delay */
-}
-
-/* When sidebar is expanded, change header visibility, size, and position */
-.sidebar.expanded .sidebar-header {
-    visibility: visible; /* Make it visible when expanded */
-    opacity: 1; /* Fully visible */
-    font-size: 1.5rem; /* Larger font size when expanded */
-    padding: 5px; /* Reduced padding in expanded state */
-    margin-top: 30px; /* Space between header and hamburger icon */
-    width: 60%; /* Reduced width to 60% when expanded */
-    text-align: center; /* Center the text */
-}
-
-/* Sidebar Links */
-.sidebar a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    transition: color 0.3s ease, transform 0.3s ease, opacity 0.5s ease 0.2s; /* Added opacity transition with 0.2s delay */
-    text-align: center; /* Ensure text is centered */
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5); /* Drop shadow for each item */
-    visibility: hidden; /* Hidden by default */
-    opacity: 0; /* Hidden by default */
-}
-
-/* When sidebar is expanded, show the links and header */
-.sidebar.expanded .sidebar-header,
-.sidebar.expanded a {
-    visibility: visible; /* Make them visible when sidebar is expanded */
-    opacity: 1; /* Fully visible */
-}
-
-/* Sidebar Links Hover Effect */
-.sidebar a:hover {
-    transform: scale(1.1); /* Scale up the item by 10% */
-    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.7); /* Add stronger shadow for the "pop-out" effect */
-}
-
-/* Hamburger Menu (Three vertical lines) */
-.hamburger-menu {
-    font-size: 30px;
-    color: white;
-    cursor: pointer;
-    padding: 10px;
-    margin: 10px;
-    display: block;
-    visibility: visible; /* Always visible */
-    transition: background-color 0.3s ease; /* Smooth transition for color */
-}
-
-/* When the sidebar is expanded, change hamburger icon color */
-.sidebar.expanded .hamburger-menu {
-    background-color: rgba(255, 255, 255, 0.2); /* Change to a darker gray when open */
-}
-
-/* Static Right Sidebar Styles (Right Sidebar) */
-.sidebar-right {
-    position: fixed;
-    top: 0;
-    right: 0; /* Position the right sidebar on the right */
-    width: 50px; /* Default narrow width */
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.75); /* Transparent background */
-    color: white;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
-    padding: 10px 0; /* Default narrow padding */
-    display: flex;
-    flex-direction: column; /* Items stacked vertically */
-    align-items: center; /* Center everything in the sidebar */
-    z-index: 100; /* Make sure the sidebar is on top */
-    transition: width 0.2s ease-in-out, padding 0.2s ease-in-out; /* Updated transition for both width and padding */
-}
-
-/* When the right sidebar is expanded, change width and padding */
-.sidebar-right.expanded {
-    width: 200px; /* Expanded width */
-    padding: 20px 0; /* Padding to make space for links */
-}
-
-/* Right Sidebar Header */
-.sidebar-right-header {
-    width: 80%; /* Reduced width from 100% to 80% */
-    font-size: 1rem; /* Smaller size for the collapsed state */
-    font-weight: bold;
-    color: white;
-    text-align: center; /* Center the text */
-    padding: 2px; /* Further reduced padding */
-    margin-bottom: 40px; /* Added 20px to the bottom margin */
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5); /* Apply shadow */
-    visibility: hidden; /* Hidden by default */
-    opacity: 0; /* Hidden by default with no opacity */
-    margin-top: 20px; /* Ensure some space above the header */
-    transition: opacity 0.5s ease 0.2s, padding 0.2s ease, font-size 0.3s ease; /* Fade-in effect with 0.2s delay */
-}
-
-/* When the right sidebar is expanded, change header visibility, size, and position */
-.sidebar-right.expanded .sidebar-right-header {
-    visibility: visible; /* Make it visible when expanded */
-    opacity: 1; /* Fully visible */
-    font-size: 1.5rem; /* Larger font size when expanded */
-    padding: 5px; /* Reduced padding in expanded state */
-    margin-top: 30px; /* Space between header and hamburger icon */
-    width: 60%; /* Reduced width to 60% when expanded */
-    text-align: center; /* Center the text */
-}
-
-/* Right Sidebar Links */
-.sidebar-right a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    transition: color 0.3s ease, transform 0.3s ease, opacity 0.5s ease 0.2s; /* Added opacity transition with 0.2s delay */
-    text-align: center; /* Ensure text is centered */
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5); /* Drop shadow for each item */
-    visibility: hidden; /* Hidden by default */
-    opacity: 0; /* Hidden by default */
-}
-
-/* When the right sidebar is expanded, show the links and header */
-.sidebar-right.expanded .sidebar-right-header,
-.sidebar-right.expanded a {
-    visibility: visible; /* Make them visible when sidebar is expanded */
-    opacity: 1; /* Fully visible */
-}
-
-/* Right Sidebar Links Hover Effect */
-.sidebar-right a:hover {
-    transform: scale(1.1); /* Scale up the item by 10% */
-    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.7); /* Add stronger shadow for the "pop-out" effect */
-}
-
-/* Style for the password input field */
+/* Password Input Field */
 #passwordInput {
     background-color: rgba(0, 0, 0, 0.75);
     color: white;
@@ -309,7 +132,9 @@ h1 {
     font-size: 1rem;
     width: 100%;
     max-width: 250px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    box-sizing: border-box; /* Ensures width is respected */
+    margin-bottom: 15px; /* Space below the password input */
+    text-align: center;
 }
 
 #passwordInput:focus {
@@ -318,7 +143,7 @@ h1 {
     box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.75);
 }
 
-/* Style for the Go button */
+/* Go Button */
 button[type="submit"] {
     background-color: rgba(0, 0, 0, 0.75);
     color: white;
@@ -334,7 +159,113 @@ button[type="submit"] {
     margin-top: 15px;
 }
 
-button[type="submit"]:hover {
+/* On-Screen Keyboard Styles */
+#keyboard {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Keyboard Row Layout - Stacked */
+#keyboard .row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: row;
+}
+
+/* Uniform Key Sizes */
+.key {
+    padding: 15px;
+    font-size: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    border: 0px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    flex: 1;
+    min-width: 60px; /* Uniform minimum width for all keys */
+    height: 60px; /* Ensures uniform height for all keys */
+}
+
+.key:active {
     background-color: rgba(255, 255, 255, 0.2);
-    transform: scale(1);
+}
+
+/* Adjustments for Specific Keys in Bottom Row */
+#keyboard .row:last-child {
+    justify-content: space-between;
+}
+
+/* Backspace, 0, and Submit keys will now have the same size */
+#keyboard .row:last-child .key[data-key="backspace"],
+#keyboard .row:last-child .key[data-key="0"],
+#keyboard .row:last-child .key[data-key="submit"] {
+    flex-basis: 30%;
+}
+
+/* Static Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 100;
+    transition: width 0.2s ease-in-out, padding 0.2s ease-in-out;
+}
+
+/* When sidebar is expanded */
+.sidebar.expanded {
+    width: 200px;
+    padding: 20px 0;
+}
+
+/* Sidebar Header */
+.sidebar-header {
+    width: 80%;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    padding: 2px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    visibility: hidden;
+    opacity: 0;
+    margin-top: 20px;
+    transition: opacity 0.5s ease 0.2s, padding 0.2s ease, font-size 0.3s ease;
+}
+
+/* Sidebar Links */
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    transition: color 0.3s ease, transform 0.3s ease, opacity 0.5s ease 0.2s;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    visibility: hidden;
+    opacity: 0;
+}
+
+.sidebar.expanded .sidebar-header,
+.sidebar.expanded a {
+    visibility: visible;
+    opacity: 1;
 }
