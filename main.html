@@ -31,36 +31,29 @@
         <div class="menu">
             <main>
                 <textarea id="text-box" placeholder="Enter your text here..." rows="4" cols="50"></textarea>
-             
             </main>
         </div>
-		
-		<!-- Template Menu (New) -->
-    
+
+        <!-- Template Menu (New) -->
         <h1 style="font-size: 14px"><a href="index.html">lock the site</a></h1>
 
         <!-- Toggle Wallpaper Button -->
         <button id="toggle-wallpaper-btn">Toggle Background</button>
     </div>
 
-    <!-- Sidebars -->
-    <div class="sidebar" id="sidebar">
-        <div class="hamburger-menu" onclick="toggleSidebar('sidebar')">&#9776;</div>
-        <div class="sidebar-header">Sidebar</div>
-        <a href="#">Item 1</a>
-        <a href="#">Item 2</a>
-        <a href="#">Item 3</a>
-        <a href="#">Item 4</a> <!-- New Item Added -->
-    </div>
+    <!-- Left Sidebar -->
+    <div id="sidebar" class="sidebar">
+    <div class="hamburger-menu">☰</div> <!-- Ensure this is inside the sidebar -->
+    <div class="sidebar-header">Left Sidebar</div>
+    <a href="#">Link 1</a>
+</div>
 
-    <div class="sidebar-right" id="sidebar-right">
-        <div class="hamburger-menu" onclick="toggleSidebar('sidebar-right')">&#9776;</div>
-        <div class="sidebar-right-header">Sidebar</div>
-        <a href="#">Item 1</a>
-        <a href="#">Item 2</a>
-        <a href="#">Item 3</a>
-        <a href="#"Item 4</a>
-    </div>
+    <!-- Right Sidebar -->
+    <div id="sidebar-right" class="sidebar sidebar-right">
+    <div class="hamburger-menu">☰</div> <!-- Ensure this is inside the sidebar -->
+    <div class="sidebar-header">Right Sidebar</div>
+    <a href="#">Link 2</a>
+</div>
 
 </body>
 </html>

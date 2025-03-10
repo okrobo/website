@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
         sidebar.classList.toggle('expanded');
+        console.log(`${sidebarId} sidebar toggled. Is expanded: ${sidebar.classList.contains('expanded')}`);
     }
 
     // 📌 Hamburger Menu Event Listeners for Left and Right Sidebars
@@ -33,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (hamburgerLeft) {
         hamburgerLeft.addEventListener("click", function () {
+            console.log("Left sidebar hamburger menu clicked.");
             toggleSidebar("sidebar");
         });
     } else {
@@ -41,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (hamburgerRight) {
         hamburgerRight.addEventListener("click", function () {
+            console.log("Right sidebar hamburger menu clicked.");
             toggleSidebar("sidebar-right");
         });
     } else {
@@ -65,10 +68,13 @@ document.addEventListener("DOMContentLoaded", function () {
     let isVideoVisible = true;
 
     toggleButton.addEventListener("click", function () {
+        console.log("Toggle wallpaper button clicked.");
         if (isVideoVisible) {
             video.style.display = "none";
+            console.log("Video background hidden.");
         } else {
             video.style.display = "block";
+            console.log("Video background displayed.");
         }
         isVideoVisible = !isVideoVisible;
     });
@@ -82,14 +88,18 @@ document.addEventListener("DOMContentLoaded", function () {
         button.addEventListener("click", function () {
             const key = this.getAttribute("data-key");
 
+            console.log(`Key pressed: ${key}`);
+
             if (key === "backspace") {
                 // Remove the last character from the input field
                 passwordInput.value = passwordInput.value.slice(0, -1);
+                console.log("Backspace pressed. New input: ", passwordInput.value);
             } else if (key === "submit") {
                 checkPassword();
             } else {
                 // Add the clicked key to the input field
                 passwordInput.value += key;
+                console.log("New input: ", passwordInput.value);
             }
         });
     });
@@ -99,14 +109,18 @@ document.addEventListener("DOMContentLoaded", function () {
         var userInput = document.getElementById("passwordInput").value;
         var correctPassword = "twentyone";  // The specific word to validate
 
+        console.log("Checking password...");
+
         // Check if the entered word matches the correct password
         if (userInput === correctPassword) {
+            console.log("Password correct, redirecting...");
             // Redirect to another page if the word is correct
             window.location.href = "main.html";  // Replace with your desired page URL
         } else {
+            console.log("Password incorrect.");
             // If the word is incorrect, reload the current page
             alert("Incorrect passcode.");
-            window.location.href = window.location.href;  // Reload current page
+            document.getElementById("passwordInput").value = ""; // Clear the input instead of reloading
         }
     }
 
@@ -115,6 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (submitButton) {
         submitButton.addEventListener("click", function(event) {
             event.preventDefault(); // Prevent form submission
+            console.log("Submit button clicked.");
             checkPassword();
         });
     } else {
