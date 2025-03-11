@@ -10,7 +10,15 @@
 
 <body>
 
-    <!-- Video Background Container -->
+    <!-- Sidebar Structure -->
+    <div class="sidebar" id="sidebar">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </div>
+
+    <!-- Main Content (Video Background and Menu) -->
     <div class="video-container">
         <video autoplay muted loop id="video-background">
             <source src="images/starfield.mp4" type="video/mp4">
@@ -19,7 +27,6 @@
         </video>
     </div>
 
-    <!-- Main Content (Clock and Menu) -->
     <div class="container">
         <div id="clock-container">
             <div id="clock"></div>
@@ -41,19 +48,12 @@
         <button id="toggle-wallpaper-btn">Toggle Background</button>
     </div>
 
-    <!-- Left Sidebar -->
-    <div id="sidebar" class="sidebar">
-    <div class="hamburger-menu">☰</div> <!-- Ensure this is inside the sidebar -->
-    <div class="sidebar-header">Left Sidebar</div>
-    <a href="#">Link 1</a>
-</div>
-
-    <!-- Right Sidebar -->
-    <div id="sidebar-right" class="sidebar sidebar-right">
-    <div class="hamburger-menu">☰</div> <!-- Ensure this is inside the sidebar -->
-    <div class="sidebar-header">Right Sidebar</div>
-    <a href="#">Link 2</a>
-</div>
+    <!-- Hamburger Menu -->
+        <div class="hamburger-wrapper">
+            <div id="hamburger-menu" class="hamburger-menu">
+                &#9776; <!-- Hamburger icon -->
+            </div>
+        </div>
 
 </body>
 </html>

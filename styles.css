@@ -2,11 +2,39 @@
 body {
     margin: 0;
     padding: 0;
-    overflow: auto;
+    overflow: hidden; /* Hide both vertical and horizontal scrollbars */
     font-family: Consolas, monospace;
     color: white;
     position: relative;
     height: 100vh;
+    padding-bottom: 50px; /* Optional: Ensures there's no bottom padding */
+    transition: overflow 0.5s ease; /* Add transition for smooth effect */
+    scrollbar-width: none; /* Firefox: Hides the scrollbar */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Hide scrollbar in Webkit browsers (Chrome, Safari, etc.) */
+body::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar */
+}
+
+/* Show scrollbar when scrolling (optional) */
+body.scroll-active {
+    scrollbar-color: rgba(255, 255, 255, 0.8) rgba(0, 0, 0, 0.5); /* Visible scrollbar */
+}
+
+/* Webkit browsers (Chrome, Safari, etc.) */
+body::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Make scrollbar thumb transparent */
+    transition: background-color 0.3s ease;
+}
+
+body.scroll-active::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.8); /* Visible scrollbar thumb when scrolling */
+}
+
+body::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.5); /* Scrollbar track */
 }
 
 /* Video Background */
@@ -40,11 +68,12 @@ body {
     width: 100%;
     position: relative;
     z-index: 1;
+    transition: margin-left 0.3s ease-in-out;
 }
 
 /* Clock Styles */
 #clock-container {
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 0.5);
     border: 0px solid rgba(255, 255, 0.5);
     padding: 20px;
     text-align: center;
@@ -159,6 +188,92 @@ button[type="submit"] {
     margin-top: 15px;
 }
 
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 25px; /* Adjust the width to your preference */
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000; /* Ensure the sidebar is on top of other elements */
+    transform: translateX(-100%); /* Start hidden off-screen */
+}
+
+/* Sidebar Links - Initially Hidden */
+.sidebar a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 10px 0 10px;
+    padding-top: 50px;
+    text-align: center;
+    opacity: 0; /* Start with the links hidden */
+    transition: opacity 0.3s ease-in-out, color 0.3s ease-in-out; /* Smooth fade-in effect */
+}
+
+/* Hover Effect */
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+/* Sidebar Open State - Make Links Visible */
+.sidebar.expanded a {
+    opacity: 1; /* Make links visible */
+}
+
+/* Sidebar Open State */
+.sidebar.expanded {
+    transform: translateX(0); /* Slide the sidebar into view */
+}
+
+/* Close Button */
+.sidebar .close-btn {
+    font-size: 36px;
+    color: #818181;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-weight: bold;
+}
+
+/* Ensure the hamburger menu is at the top-left */
+.hamburger-wrapper {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1100;
+}
+
+.hamburger-menu {
+    position: absolute; /* Inside the wrapper, reset any parent context */
+    top: 0;
+    left: 0;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+/* Reset any other styles affecting the positioning */
+body {
+    padding-bottom: 50px; /* Optional: Ensures there's no bottom padding */
+}
+
+/* Adjust Main Content */
+.container {
+    margin-left: 0;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.sidebar.expanded + .container {
+    margin-left: 250px; /* Shift the main content when the sidebar is open */
+}
+
 /* On-Screen Keyboard Styles */
 #keyboard {
     display: grid;
@@ -206,42 +321,4 @@ button[type="submit"] {
 #keyboard .row:last-child .key[data-key="0"],
 #keyboard .row:last-child .key[data-key="submit"] {
     flex-basis: 30%;
-}
-
-/* Sidebar Styles */
-.sidebar, .sidebar-right {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    width: 250px;
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    transition: transform 0.3s ease-in-out;
-    z-index: 1000; /* Ensures the sidebar is above other elements */
-}
-
-.sidebar {
-    right: 0; /* ✅ Positions the right sidebar on the right */
-    left: auto; /* ✅ Prevents it from inheriting the left positioning */
-    transform: translateX(100%);
-}
-
-.sidebar-right {
-    right: 0;
-    transform: translateX(100%);
-}
-
-.sidebar.expanded {
-    transform: translateX(0);
-}
-
-/* Hamburger Menu */
-.hamburger-menu {
-    font-size: 30px;
-    cursor: pointer;
-    color: white;
-    position: absolute;
-    top: 20px;
-    left: 20px;
 }

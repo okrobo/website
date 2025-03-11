@@ -10,61 +10,39 @@ document.addEventListener("DOMContentLoaded", function () {
         const formattedTime = `${(hours % 12 || 12)}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${ampm}`;
         const formattedDate = now.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
 
-        document.getElementById('clock').textContent = formattedTime;
-        document.getElementById('date').textContent = formattedDate;
+        // Ensure the clock and date elements exist before updating them
+        const clockElement = document.getElementById('clock');
+        const dateElement = document.getElementById('date');
+        if (clockElement) clockElement.textContent = formattedTime;
+        if (dateElement) dateElement.textContent = formattedDate;
     }
 
     setInterval(updateClock, 1000);
-    updateClock();
+    updateClock(); // Run once on load
 
-    // 📌 Sidebar Toggle Function
-    function toggleSidebar(sidebarId) {
-        const sidebar = document.getElementById(sidebarId);
-        if (!sidebar) {
-            console.error(`Sidebar ${sidebarId} not found!`);
-            return;
-        }
-        sidebar.classList.toggle('expanded');
-        console.log(`${sidebarId} sidebar toggled. Is expanded: ${sidebar.classList.contains('expanded')}`);
-    }
+    // 📌 Hamburger Menu and Sidebar Toggle
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const sidebar = document.getElementById('sidebar');
 
-    // 📌 Hamburger Menu Event Listeners for Left and Right Sidebars
-    const hamburgerLeft = document.querySelector(".sidebar .hamburger-menu");
-    const hamburgerRight = document.querySelector(".sidebar-right .hamburger-menu");
-
-    if (hamburgerLeft) {
-        hamburgerLeft.addEventListener("click", function () {
-            console.log("Left sidebar hamburger menu clicked.");
-            toggleSidebar("sidebar");
+    if (hamburgerMenu && sidebar) {
+        hamburgerMenu.addEventListener('click', function(event) {
+            event.stopPropagation();
+            console.log("Hamburger menu clicked.")
+            sidebar.classList.toggle('expanded');
         });
     } else {
-        console.error("Left sidebar hamburger menu not found");
-    }
-
-    if (hamburgerRight) {
-        hamburgerRight.addEventListener("click", function () {
-            console.log("Right sidebar hamburger menu clicked.");
-            toggleSidebar("sidebar-right");
-        });
-    } else {
-        console.error("Right sidebar hamburger menu not found");
+        console.error("Hamburger menu or sidebar not found in the DOM.");
     }
 
     // 📌 Toggle Wallpaper Button Functionality
     const toggleButton = document.getElementById("toggle-wallpaper-btn");
     const video = document.getElementById("video-background");
 
-    if (!toggleButton) {
-        console.error("Toggle Wallpaper Button not found in index.html");
-        return; // Stop further execution if button is not found
+    if (!toggleButton || !video) {
+        console.error("Toggle Wallpaper Button or Video element not found in index.html");
+        return;
     }
 
-    if (!video) {
-        console.error("Video element not found in index.html");
-        return; // Stop further execution if video is not found
-    }
-
-    // 📌 Toggle Background Function
     let isVideoVisible = true;
 
     toggleButton.addEventListener("click", function () {
@@ -83,56 +61,62 @@ document.addEventListener("DOMContentLoaded", function () {
     const passwordInput = document.getElementById("passwordInput");
     const keyboardButtons = document.querySelectorAll("#keyboard .key");
 
-    // Add click event listener to each keyboard key
-    keyboardButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            const key = this.getAttribute("data-key");
+    if (passwordInput && keyboardButtons.length > 0) {
+        keyboardButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const key = this.getAttribute("data-key");
 
-            console.log(`Key pressed: ${key}`);
+                console.log(`Key pressed: ${key}`);
 
-            if (key === "backspace") {
-                // Remove the last character from the input field
-                passwordInput.value = passwordInput.value.slice(0, -1);
-                console.log("Backspace pressed. New input: ", passwordInput.value);
-            } else if (key === "submit") {
-                checkPassword();
-            } else {
-                // Add the clicked key to the input field
-                passwordInput.value += key;
-                console.log("New input: ", passwordInput.value);
-            }
+                if (key === "backspace") {
+                    passwordInput.value = passwordInput.value.slice(0, -1);
+                    console.log("Backspace pressed. New input: ", passwordInput.value);
+                } else if (key === "submit") {
+                    checkPassword();
+                } else {
+                    passwordInput.value += key;
+                    console.log("New input: ", passwordInput.value);
+                }
+            });
         });
+    } else {
+        console.error("Password input or keyboard buttons not found.");
+    }
+
+    // 📌 Enter submits password
+    passwordInput.addEventListener("keydown", function(event) {
+        // Check if the pressed key is 'Enter'
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevent form submission (if it's inside a form)
+            checkPassword(); // Submit password
+        }
     });
 
     // 📌 Password Validation Function
     function checkPassword() {
-        var userInput = document.getElementById("passwordInput").value;
-        var correctPassword = "twentyone";  // The specific word to validate
+        const userInput = passwordInput.value;
+        const correctPassword = "twentyone"; // The specific word to validate
 
         console.log("Checking password...");
 
-        // Check if the entered word matches the correct password
         if (userInput === correctPassword) {
             console.log("Password correct, redirecting...");
-            // Redirect to another page if the word is correct
-            window.location.href = "main.html";  // Replace with your desired page URL
+            window.location.href = "main.html"; // Replace with your desired page URL
         } else {
             console.log("Password incorrect.");
-            // If the word is incorrect, reload the current page
             alert("Incorrect passcode.");
-            document.getElementById("passwordInput").value = ""; // Clear the input instead of reloading
+            passwordInput.value = ""; // Clear the input instead of reloading
         }
     }
 
-    // 📌 Event Listener for Submit Button (password check)
-    const submitButton = document.querySelector("button[type='submit']");
-    if (submitButton) {
-        submitButton.addEventListener("click", function(event) {
-            event.preventDefault(); // Prevent form submission
-            console.log("Submit button clicked.");
-            checkPassword();
-        });
-    } else {
-        console.error("Submit button not found.");
-    }
+    // 📌 When the user scrolls, show the scrollbar
+    window.addEventListener('scroll', function () {
+        document.body.classList.add('scroll-active');
+
+        // Remove the 'scroll-active' class after a delay (e.g., 1.5s) if the user stops scrolling
+        clearTimeout(document.body.scrollTimeout);
+        document.body.scrollTimeout = setTimeout(function () {
+            document.body.classList.remove('scroll-active');
+        }, 1500); // Hide scrollbar after 1.5 seconds of inactivity
+    });
 });
