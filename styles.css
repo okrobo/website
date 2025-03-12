@@ -145,6 +145,12 @@ textarea:focus {
     box-shadow: 0px 0px 0px rgba(255, 255, 255, 0.5);
 }
 
+#toggle-wallpaper-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    transform: scale(1.05);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6);
+    }
+
 /* Heading */
 h1 {
     font-size: 12px;
@@ -191,7 +197,7 @@ button[type="submit"] {
 /* Sidebar Styles */
 .sidebar {
     position: fixed;
-    top: 0;
+    top: 30px;
     left: 0;
     width: 25px; /* Adjust the width to your preference */
     height: 100%;
@@ -218,6 +224,10 @@ button[type="submit"] {
 
 /* Hover Effect */
 .sidebar a:hover {
+    font-family: Consolas;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6);
+    transform: scale(1.1);
+    transition: background-color 0.1s ease-in-out, transform 0.1s;
     color: #f1f1f1;
 }
 
@@ -229,16 +239,6 @@ button[type="submit"] {
 /* Sidebar Open State */
 .sidebar.expanded {
     transform: translateX(0); /* Slide the sidebar into view */
-}
-
-/* Close Button */
-.sidebar .close-btn {
-    font-size: 36px;
-    color: #818181;
-    position: absolute;
-    top: 10px;
-    right: 25px;
-    font-weight: bold;
 }
 
 /* Ensure the hamburger menu is at the top-left */
@@ -321,4 +321,13 @@ body {
 #keyboard .row:last-child .key[data-key="0"],
 #keyboard .row:last-child .key[data-key="submit"] {
     flex-basis: 30%;
+}
+
+
+/* Calendar iframe */
+iframe {
+    width: 1000px;
+    height: 550px;
+    border: none;
+    border-radius: 8px;
 }

@@ -119,4 +119,27 @@ document.addEventListener("DOMContentLoaded", function () {
             document.body.classList.remove('scroll-active');
         }, 1500); // Hide scrollbar after 1.5 seconds of inactivity
     });
+
+    // 📌 TextBox LocalStorage Functionality
+    const textBox = document.getElementById('text-box');
+    if (textBox) {
+        // 📌 Check if there's saved content in localStorage when the page loads
+        const savedContent = localStorage.getItem('textBoxContent');
+        if (savedContent) {
+            textBox.value = savedContent;
+        }
+
+        // 📌 Save the content to localStorage every time the user types in the textarea
+        textBox.addEventListener('input', function() {
+            const content = textBox.value;
+            try {
+                localStorage.setItem('textBoxContent', content);
+            } catch (e) {
+                console.error("Error saving to localStorage", e);
+            }
+        });
+    } else {
+        console.error("Text box element not found.");
+    }
+
 });
