@@ -80,4 +80,30 @@ document.addEventListener("DOMContentLoaded", function () {
             document.body.classList.remove('scroll-active');
         }, 1500);
     });
+
+    // 📌 Enter submits password
+    const passwordInput = document.getElementById("passwordInput");
+    if (passwordInput) {
+        passwordInput.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                checkPassword();
+            }
+        });
+    }
+
+    // 📌 Password Validation Function
+    function checkPassword() {
+        const userInput = passwordInput.value;
+        const correctPassword = "twentyone";
+        console.log("Checking password...");
+        if (userInput === correctPassword) {
+            console.log("Password correct, redirecting...");
+            window.location.href = "main.html";
+        } else {
+            console.log("Password incorrect.");
+            alert("Incorrect passcode.");
+            passwordInput.value = "";
+        }
+    }
 });
