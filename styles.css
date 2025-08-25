@@ -1,4 +1,9 @@
 /* Global Styles */
+html {
+    overflow: scroll; /*enable scroll*/
+    scrollbar-width: none; /* Firefox: Hides the scrollbar */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+
 body {
     margin: 0;
     padding: 0;
@@ -7,8 +12,9 @@ body {
     color: white;
     position: relative;
     height: 100vh;
-    padding-bottom: 50px; /* Optional: Ensures there's no bottom padding */
-    transition: overflow 0.5s ease; /* Add transition for smooth effect */
+    padding-bottom: 50px;
+    transition: overflow 0.5s ease;
+    overflow: scroll; /*enable scroll*/
     scrollbar-width: none; /* Firefox: Hides the scrollbar */
     overflow-x: hidden; /* Prevent horizontal scrolling */
 }
@@ -16,25 +22,6 @@ body {
 /* Hide scrollbar in Webkit browsers (Chrome, Safari, etc.) */
 body::-webkit-scrollbar {
     display: none; /* Hides the scrollbar */
-}
-
-/* Show scrollbar when scrolling (optional) */
-body.scroll-active {
-    scrollbar-color: rgba(255, 255, 255, 0.8) rgba(0, 0, 0, 0.5); /* Visible scrollbar */
-}
-
-/* Webkit browsers (Chrome, Safari, etc.) */
-body::-webkit-scrollbar-thumb {
-    background-color: transparent; /* Make scrollbar thumb transparent */
-    transition: background-color 0.3s ease;
-}
-
-body.scroll-active::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.8); /* Visible scrollbar thumb when scrolling */
-}
-
-body::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.5); /* Scrollbar track */
 }
 
 /* Video Background */
@@ -104,7 +91,7 @@ body::-webkit-scrollbar-track {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Ensures the content inside the menu is centered vertically */
+    justify-content: center;
     margin-top: 40px;
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
 }
@@ -130,6 +117,18 @@ textarea:focus {
     border: 0px;
 }
 
+/* New container for Toggle Wallpaper Button */
+.toggle-container {
+    display: flex;
+    justify-content: center;  /* Center the button horizontally */
+    align-items: center;      /* Center the button vertically */
+    position: relative;       /* Absolute positioning to not interfere with other elements */
+    top: 0%;                 /* Vertical center (50% from the top) */
+    left: 50%;                /* Horizontal center (50% from the left) */
+    transform: translate(-50%, -50%);  /* Offset by 50% to truly center the element */
+    width: 100%;              /* Full width (just to ensure it's not limited) */
+}
+
 /* Toggle Button */
 #toggle-wallpaper-btn {
     background-color: rgba(0, 0, 0, 0.75);
@@ -149,7 +148,7 @@ textarea:focus {
     background-color: rgba(0, 0, 0, 0.7);
     transform: scale(1.05);
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6);
-    }
+}
 
 /* Heading */
 h1 {
@@ -167,8 +166,8 @@ h1 {
     font-size: 1rem;
     width: 100%;
     max-width: 250px;
-    box-sizing: border-box; /* Ensures width is respected */
-    margin-bottom: 15px; /* Space below the password input */
+    box-sizing: border-box;
+    margin-bottom: 15px;
     text-align: center;
 }
 
@@ -199,14 +198,14 @@ button[type="submit"] {
     position: fixed;
     top: 30px;
     left: 0;
-    width: 25px; /* Adjust the width to your preference */
+    width: 25px;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     padding: 20px;
     transition: transform 0.3s ease-in-out;
-    z-index: 1000; /* Ensure the sidebar is on top of other elements */
-    transform: translateX(-100%); /* Start hidden off-screen */
+    z-index: 1000;
+    transform: translateX(-100%);
 }
 
 /* Sidebar Links - Initially Hidden */
@@ -218,8 +217,8 @@ button[type="submit"] {
     margin: 10px 0 10px;
     padding-top: 50px;
     text-align: center;
-    opacity: 0; /* Start with the links hidden */
-    transition: opacity 0.3s ease-in-out, color 0.3s ease-in-out; /* Smooth fade-in effect */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 /* Hover Effect */
@@ -233,12 +232,12 @@ button[type="submit"] {
 
 /* Sidebar Open State - Make Links Visible */
 .sidebar.expanded a {
-    opacity: 1; /* Make links visible */
+    opacity: 1;
 }
 
 /* Sidebar Open State */
 .sidebar.expanded {
-    transform: translateX(0); /* Slide the sidebar into view */
+    transform: translateX(0);
 }
 
 /* Ensure the hamburger menu is at the top-left */
@@ -250,18 +249,13 @@ button[type="submit"] {
 }
 
 .hamburger-menu {
-    position: absolute; /* Inside the wrapper, reset any parent context */
+    position: absolute;
     top: 0;
     left: 0;
     font-size: 30px;
     color: white;
     cursor: pointer;
     z-index: 1100;
-}
-
-/* Reset any other styles affecting the positioning */
-body {
-    padding-bottom: 50px; /* Optional: Ensures there's no bottom padding */
 }
 
 /* Adjust Main Content */
@@ -271,7 +265,7 @@ body {
 }
 
 .sidebar.expanded + .container {
-    margin-left: 250px; /* Shift the main content when the sidebar is open */
+    margin-left: 250px;
 }
 
 /* On-Screen Keyboard Styles */
@@ -303,8 +297,8 @@ body {
     text-align: center;
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
     flex: 1;
-    min-width: 60px; /* Uniform minimum width for all keys */
-    height: 60px; /* Ensures uniform height for all keys */
+    min-width: 60px;
+    height: 60px;
 }
 
 .key:active {
@@ -330,4 +324,135 @@ iframe {
     height: 550px;
     border: none;
     border-radius: 8px;
+}
+
+/* Checklist Main Container */
+.checklist-container {
+    width: 77%;
+    max-width: 800px;
+    text-align: center;
+    margin: 100px auto 40px auto;
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 20px;
+	margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    color: white;
+}
+
+/* Checklist Heading */
+.checklist-container h2 {
+    margin-bottom: 30px;
+	margin-top 20px;
+    font-family: Consolas, monospace;
+    font-size: 1.5rem;
+}
+
+/* Input Box */
+#inputBox {
+    width: 100%;
+    padding: 20px;
+    font-size: 16px;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 6px;
+    background-color: rgba(0,0,0,0.6);
+    color: white;
+    font-family: Consolas, monospace;
+    box-sizing: border-box;
+}
+
+#inputBox:focus {
+    outline: none;
+    border-color: white;
+    box-shadow: 0px 0px 8px rgba(255,255,255,0.75);
+}
+
+/* Checklist List */
+#checklist {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+/* Checklist Items */
+#checklist li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 8px 12px;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 6px;
+    background: rgba(0,0,0,0.6);
+    word-break: break-word;
+    transition: transform 0.2s, box-shadow 0.3s;
+    color: white;
+}
+
+#checklist li:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 0px 10px rgba(255,255,255,0.6);
+}
+
+/* Text Inside Items */
+.item-left {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.item-text {
+    margin-left: 8px;
+    font-size: 16px;
+}
+
+/* Completed Items */
+.completed {
+    text-decoration: none;
+    color: rgba(200,200,200,0.7);
+}
+
+.completed .item-text {
+    text-decoration: line-through;
+    color: gray;
+}
+
+/* Delete Button */
+.delete-btn {
+    display: none;
+    border: none;
+    background: white;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.delete-btn:hover {
+    background: rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.8);
+}
+
+/* Show delete button only on completed items */
+li.completed .delete-btn {
+    display: inline;
+    text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .checklist-container {
+        width: 95%;
+    }
+    .item-text {
+        font-size: 14px;
+    }
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5);  /* Increase size by 1.5 times */
 }

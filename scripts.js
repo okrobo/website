@@ -106,4 +106,87 @@ document.addEventListener("DOMContentLoaded", function () {
             passwordInput.value = "";
         }
     }
+
+    // 📌 Checklist App
+    const inputBox = document.getElementById("inputBox");
+    const checklist = document.getElementById("checklist");
+
+    // Load saved checklist from localStorage when page loads
+    loadChecklist();
+
+    inputBox.addEventListener("keypress", function (e) {
+        if (e.key === "Enter" && inputBox.value.trim() !== "") {
+            addItem(inputBox.value.trim());
+            inputBox.value = "";
+            saveChecklist();  // Save to localStorage after adding item
+        }
+    });
+
+    // 📌 Add item at the top of the checklist
+    function addItem(text, completed = false) {
+        const li = document.createElement("li");
+
+        const leftWrapper = document.createElement("div");
+        leftWrapper.className = "item-left";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = completed;
+
+        const span = document.createElement("span");
+        span.textContent = text;
+        span.className = "item-text";
+
+        checkbox.onchange = () => {
+            if (checkbox.checked) {
+                li.classList.add("completed");
+                span.classList.add("completed");
+            } else {
+                li.classList.remove("completed");
+                span.classList.remove("completed");
+            }
+            saveChecklist();  // Save to localStorage after checkbox change
+        };
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.className = "delete-btn";
+        deleteBtn.onclick = () => {
+            li.remove();
+            saveChecklist();  // Save to localStorage after deletion
+        };
+
+        leftWrapper.appendChild(checkbox);
+        leftWrapper.appendChild(span);
+        li.appendChild(leftWrapper);
+        li.appendChild(deleteBtn);
+
+        // Insert new item at the top
+        checklist.insertBefore(li, checklist.firstChild);
+    }
+
+    // Save the current checklist to localStorage
+    function saveChecklist() {
+        const items = [];
+        const listItems = checklist.querySelectorAll("li");
+        listItems.forEach(item => {
+            const checkbox = item.querySelector("input[type='checkbox']");
+            const text = item.querySelector(".item-text").textContent;
+            const completed = checkbox.checked;
+            items.push({ text, completed });
+        });
+
+        // Save the checklist array to localStorage
+        localStorage.setItem("checklistItems", JSON.stringify(items));
+    }
+
+    // Load checklist from localStorage
+    function loadChecklist() {
+        const savedItems = JSON.parse(localStorage.getItem("checklistItems"));
+        if (savedItems && Array.isArray(savedItems)) {
+            savedItems.reverse().forEach(item => {
+                addItem(item.text, item.completed);
+            });
+        }
+    }
 });
