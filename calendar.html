@@ -12,11 +12,10 @@
 
     <!-- Sidebar Structure -->
     <div class="sidebar" id="sidebar">
-        <a href="index.html">Lock</a>
-        <a href="main.html">Notepad</a>
         <a href="calendar.html">Calendar</a>
         <a href="checklist.html">Checklist</a>
-        <a href="#">Contact</a>
+        <a href="main.html">Notepad</a>
+        <a href="index.html">Lock</a>
     </div>
 
     <!-- Main Content (Video Background and Menu) -->
@@ -36,11 +35,27 @@
     </div>
 
     <div class="container">
-        <div class="menu" style="filter: invert(0.9) hue-rotate(180deg); background-color: rgba(255,255,255,0);">
-            <main>
-                <iframe src="https://calendar.google.com/calendar/embed?src=7d238d7e913b6f64afbc49314bcd87c21a018bfe2cd8b8b351935ed915e2c296%40group.calendar.google.com&ctz=America%2FNew_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-            </main>
+        <div class="calendar">
+        <div class="calendar-header">
+            <div class="nav-buttons">
+                <button id="prev-month">Previous</button>
+                <span id="month-year">September 2025</span>
+                <button id="next-month">Next</button>
+            </div>
         </div>
+        <div class="calendar-body" id="calendar-body">
+            <!-- Weekday labels centered over columns -->
+            <div class="weekdays">
+                <span>Sun</span>
+                <span>Mon</span>
+                <span>Tue</span>
+                <span>Wed</span>
+                <span>Thu</span>
+                <span>Fri</span>
+                <span>Sat</span>
+            </div>
+        </div>
+    </div>
 
 
         <!-- Toggle Wallpaper Button -->

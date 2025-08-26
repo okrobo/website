@@ -190,3 +190,117 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 });
+
+// CALENDAR JS //
+
+let currentDate = new Date();
+let currentMonth = currentDate.getMonth(); // 0-based: January = 0
+let currentYear = currentDate.getFullYear();
+
+// Function to generate the calendar
+function generateCalendar() {
+    const calendarBody = document.getElementById('calendar-body');
+    const monthYearText = document.getElementById('month-year');
+
+    // Get the number of days in the current month
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    // Get the starting day of the week for the current month (0 = Sunday, 6 = Saturday)
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+
+    // Set the header text (Month and Year)
+    const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    monthYearText.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+
+    // Generate the key for the current month (e.g., notes-09-2025)
+    const localStorageKey = `notes-${String(currentMonth + 1).padStart(2, '0')}-${currentYear}`;
+
+    // Get saved notes from localStorage
+    const savedNotes = JSON.parse(localStorage.getItem(localStorageKey)) || {};
+
+    // Clear the calendar before re-rendering (except weekdays)
+    const weekdays = document.querySelector('.weekdays');
+    calendarBody.innerHTML = '';
+    calendarBody.appendChild(weekdays); // Re-append weekdays after clearing
+
+    // Get today's date
+    const today = new Date();
+    const isCurrentMonthAndYear =
+        currentMonth === today.getMonth() && currentYear === today.getFullYear();
+
+    // Create empty cells for the days before the first day of the month
+    for (let i = 0; i < firstDay; i++) {
+        const emptyDiv = document.createElement('div');
+        calendarBody.appendChild(emptyDiv);
+    }
+
+    // Generate the day cells for the current month
+    for (let i = 1; i <= daysInMonth; i++) {
+        // Create the day cell
+        const dayDiv = document.createElement('div');
+        dayDiv.classList.add('day');
+
+        // Create the day number span
+        const dayNumber = document.createElement('span');
+        dayNumber.textContent = i;
+
+        // 🌟 Highlight today
+        if (isCurrentMonthAndYear && i === today.getDate()) {
+            dayNumber.classList.add('today-highlight');
+        }
+
+        // Create the textarea for the day
+        const textarea = document.createElement('textarea');
+        textarea.placeholder = `...`;
+        textarea.id = `day-${i}`;
+
+        // Load saved text for this day if available
+        const savedText = savedNotes[i];
+        if (savedText) {
+            textarea.value = savedText;
+        }
+
+        // Add event listener to save text to localStorage when it changes
+        textarea.addEventListener('input', function () {
+            savedNotes[i] = textarea.value;
+            localStorage.setItem(localStorageKey, JSON.stringify(savedNotes));
+        });
+
+        // Add the day number and textarea to the day cell
+        dayDiv.appendChild(dayNumber);
+        dayDiv.appendChild(textarea);
+
+        // Append the day cell to the calendar body
+        calendarBody.appendChild(dayDiv);
+    }
+}
+
+
+// Navigate to previous month
+document.getElementById('prev-month').addEventListener('click', function () {
+    if (currentMonth === 0) {
+        currentMonth = 11;
+        currentYear--;
+    } else {
+        currentMonth--;
+    }
+    generateCalendar();
+});
+
+// Navigate to next month
+document.getElementById('next-month').addEventListener('click', function () {
+    if (currentMonth === 11) {
+        currentMonth = 0;
+        currentYear++;
+    } else {
+        currentMonth++;
+    }
+    generateCalendar();
+});
+
+// Generate the initial calendar
+window.onload = generateCalendar;
+
