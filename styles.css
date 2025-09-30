@@ -1,28 +1,56 @@
-/* Global Styles */
+/* * ====================================================
+ * Global Styles and CSS Variables (Unified)
+ * ====================================================
+ */
+
+/* 1. CSS Variables for Theming (from Color Picker CSS) */
+:root {
+    /* Core Background/Text (Based on original body styles) */
+    --primary-bg-transparent: rgba(0, 0, 0, 0.85); 
+    --text-color: white; 
+    
+    /* Accent Color (Controlled by the picker) */
+    --accent-color: #fde047; /* Default Yellow Accent */
+    --accent-color-rgb: 253, 224, 71; /* Default RGB for shadows/effects */
+    
+    /* Glows */
+    --container-glow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    --focus-glow: 0 0 10px rgba(var(--accent-color-rgb), 0.8);
+
+    font-family: Consolas, monospace;
+}
+
+/* 2. Global HTML & Body Setup (Fixed Syntax & Merged) */
 html {
     overflow: scroll; /*enable scroll*/
     scrollbar-width: none; /* Firefox: Hides the scrollbar */
     overflow-x: hidden; /* Prevent horizontal scrolling */
+} /* <-- FIXED: Added missing closing brace */
 
 body {
     margin: 0;
     padding: 0;
-    overflow: hidden; /* Hide both vertical and horizontal scrollbars */
+    /* --- CRITICAL FIX: Removed conflicting display: flex/justify-content/align-items rules --- */
     font-family: Consolas, monospace;
-    color: white;
+    color: var(--text-color); /* Now uses variable for color */
     position: relative;
     height: 100vh;
     padding-bottom: 50px;
     transition: overflow 0.5s ease;
-    overflow: scroll; /*enable scroll*/
-    scrollbar-width: none; /* Firefox: Hides the scrollbar */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow: scroll;
+    scrollbar-width: none;
+    overflow-x: hidden;
 }
 
 /* Hide scrollbar in Webkit browsers (Chrome, Safari, etc.) */
 body::-webkit-scrollbar {
     display: none; /* Hides the scrollbar */
 }
+
+/* * ====================================================
+ * Application Components (Original styles.css)
+ * ====================================================
+ */
 
 /* Video Background */
 .video-container {
@@ -80,7 +108,7 @@ body::-webkit-scrollbar {
 
 /* Menu Styles */
 .menu {
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: var(--primary-bg-transparent); /* Used variable */
     border: 0px solid rgba(255, 255, 255, 0.5);
     border-radius: 10px;
     padding: 10px;
@@ -93,13 +121,13 @@ body::-webkit-scrollbar {
     align-items: center;
     justify-content: center;
     margin-top: 40px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    box-shadow: var(--container-glow); /* Used variable */
 }
 
 /* Textbox Styling */
 textarea {
     background-color: transparent;
-    color: white;
+    color: var(--text-color);
     border: 0px;
     border-radius: 0px;
     padding: 0px;
@@ -120,19 +148,19 @@ textarea:focus {
 /* New container for Toggle Wallpaper Button */
 .toggle-container {
     display: flex;
-    justify-content: center;  /* Center the button horizontally */
-    align-items: center;      /* Center the button vertically */
-    position: relative;       /* Absolute positioning to not interfere with other elements */
-    top: 0%;                 /* Vertical center (50% from the top) */
-    left: 50%;                /* Horizontal center (50% from the left) */
-    transform: translate(-50%, -50%);  /* Offset by 50% to truly center the element */
-    width: 100%;              /* Full width (just to ensure it's not limited) */
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
 }
 
 /* Toggle Button */
 #toggle-wallpaper-btn {
-    background-color: rgba(0, 0, 0, 0.75);
-    color: white;
+    background-color: var(--primary-bg-transparent);
+    color: var(--text-color);
     font-size: 16px;
     font-family: Consolas, monospace;
     padding: 12px 24px;
@@ -157,8 +185,8 @@ h1 {
 
 /* Password Input Field */
 #passwordInput {
-    background-color: rgba(0, 0, 0, 0.75);
-    color: white;
+    background-color: var(--primary-bg-transparent);
+    color: var(--text-color);
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 8px;
     padding: 10px;
@@ -179,8 +207,8 @@ h1 {
 
 /* Go Button */
 button[type="submit"] {
-    background-color: rgba(0, 0, 0, 0.75);
-    color: white;
+    background-color: var(--primary-bg-transparent);
+    color: var(--text-color);
     font-size: 1rem;
     font-family: Consolas, monospace;
     padding: 7px 7px;
@@ -188,7 +216,7 @@ button[type="submit"] {
     cursor: pointer;
     border-radius: 8px;
     transition: background-color 0.3s ease-in-out, transform 0.2s;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    box-shadow: var(--container-glow);
     margin-left: 10px;
     margin-top: 15px;
 }
@@ -201,7 +229,7 @@ button[type="submit"] {
     width: 25px;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    color: white;
+    color: var(--text-color);
     padding: 20px;
     transition: transform 0.3s ease-in-out;
     z-index: 1000;
@@ -211,7 +239,7 @@ button[type="submit"] {
 /* Sidebar Links - Initially Hidden */
 .sidebar a {
     display: block;
-    color: white;
+    color: var(--text-color);
     text-decoration: none;
     font-size: 18px;
     margin: 10px 0 10px;
@@ -253,7 +281,7 @@ button[type="submit"] {
     top: 0;
     left: 0;
     font-size: 30px;
-    color: white;
+    color: var(--text-color);
     cursor: pointer;
     z-index: 1100;
 }
@@ -289,13 +317,13 @@ button[type="submit"] {
 .key {
     padding: 15px;
     font-size: 1.5rem;
-    background-color: rgba(0, 0, 0, 0.75);
-    color: white;
+    background-color: var(--primary-bg-transparent);
+    color: var(--text-color);
     border: 0px solid rgba(255, 255, 255, 0.5);
     border-radius: 8px;
     cursor: pointer;
     text-align: center;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    box-shadow: var(--container-glow);
     flex: 1;
     min-width: 60px;
     height: 60px;
@@ -332,18 +360,18 @@ iframe {
     max-width: 800px;
     text-align: center;
     margin: 100px auto 40px auto;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: var(--primary-bg-transparent);
     padding: 20px;
-	margin-top: 20px;
+    margin-top: 20px;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
-    color: white;
+    box-shadow: var(--container-glow);
+    color: var(--text-color);
 }
 
 /* Checklist Heading */
 .checklist-container h2 {
     margin-bottom: 30px;
-	margin-top 20px;
+    margin-top: 20px;
     font-family: Consolas, monospace;
     font-size: 1.5rem;
 }
@@ -356,7 +384,7 @@ iframe {
     border: 1px solid rgba(255,255,255,0.5);
     border-radius: 6px;
     background-color: rgba(0,0,0,0.6);
-    color: white;
+    color: var(--text-color);
     font-family: Consolas, monospace;
     box-sizing: border-box;
 }
@@ -386,7 +414,7 @@ iframe {
     background: rgba(0,0,0,0.6);
     word-break: break-word;
     transition: transform 0.2s, box-shadow 0.3s;
-    color: white;
+    color: var(--text-color);
 }
 
 #checklist li:hover {
@@ -454,9 +482,10 @@ li.completed .delete-btn {
 }
 
 input[type="checkbox"] {
-    transform: scale(1.5);  /* Increase size by 1.5 times */
+    transform: scale(1.5);
 }
 
+/* Calendar Styles */
 .calendar {
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 10px;
@@ -468,7 +497,7 @@ input[type="checkbox"] {
     overflow: hidden;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
     font-family: Consolas, monospace;
-    color: white;
+    color: var(--text-color);
 }
 
 .calendar-header {
@@ -518,7 +547,7 @@ input[type="checkbox"] {
     min-height: 90px;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 8px;
-    color: white;
+    color: var(--text-color);
     font-size: 1.1rem;
     box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05);
     transition: background-color 0.3s ease;
@@ -546,7 +575,7 @@ input[type="checkbox"] {
     font-size: 0.85rem;
     font-family: Consolas, monospace;
     background-color: rgba(0, 0, 0, 0.6);
-    color: white;
+    color: var(--text-color);
     border: none;
     border-radius: 6px;
     resize: vertical;
@@ -560,7 +589,7 @@ input[type="checkbox"] {
     outline: none;
     background-color: rgba(0, 0, 0, 0.8);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-    color: white;
+    color: var(--text-color);
 }
 
 /* Navigation Buttons */
@@ -578,7 +607,7 @@ input[type="checkbox"] {
 .nav-buttons button {
     padding: 10px 20px;
     background-color: rgba(0, 0, 0, 0.75);
-    color: white;
+    color: var(--text-color);
     border: none;
     cursor: pointer;
     font-family: Consolas, monospace;
@@ -600,4 +629,87 @@ input[type="checkbox"] {
     padding: 2px 6px;
     border-radius: 4px;
     font-weight: bold;
+}
+
+
+/* * ====================================================
+ * Color Selector Module Styles (from color_picker_styles.css)
+ * ====================================================
+ */
+
+/* Styling for the Color Selector Container */
+.color-picker-container {
+    background-color: var(--primary-bg-transparent);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: var(--container-glow);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    transition: box-shadow 0.3s;
+}
+
+.color-picker-container h1 {
+    color: var(--accent-color);
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    transition: color 0.3s;
+}
+
+.color-selector-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.color-selector-group label {
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+/* Custom styling for the native color picker input */
+#accentColorPicker {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 80px;
+    height: 80px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+/* Customize the color swatch to match the glow aesthetic */
+#accentColorPicker::-webkit-color-swatch-wrapper { padding: 0; }
+#accentColorPicker::-webkit-color-swatch {
+    border: 4px solid var(--accent-color);
+    border-radius: 50%;
+    box-shadow: var(--focus-glow);
+    transition: all 0.3s;
+}
+#accentColorPicker::-moz-color-swatch-wrapper { padding: 0; }
+#accentColorPicker::-moz-color-swatch {
+    border: 4px solid var(--accent-color);
+    border-radius: 50%;
+    box-shadow: var(--focus-glow);
+    transition: all 0.3s;
+}
+
+.info-text {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    color: var(--text-color);
+}
+
+#hexDisplay {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    transition: color 0.3s;
 }

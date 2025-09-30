@@ -14,21 +14,22 @@ const getElement = (id, required = true) => {
 document.addEventListener("DOMContentLoaded", function () {
     console.log("DOM fully loaded and parsed");
 
-    // Initialize all components
+    // Initialize all global components first.
     initClock();
     initSidebarToggle();
     initWallpaperToggle();
+    // initScrollbarHider() removed - rely on CSS for scrollbar control
+
+    // Initialize page-specific components (must be non-blocking)
     initTextBoxStorage();
-    initScrollbarHider();
-    
-    // Password and Keyboard components
-    initPasswordProtection(); 
-    initKeyboardInput(); // New function for the on-screen keyboard
-
+    initPasswordProtection();
+    initKeyboardInput();
     initChecklist();
+    generateCalendar();
+    initThemeSelector();
 
-    // Calendar initialization
-    generateCalendar(); 
+    // Initialize Calendar Navigation Listeners (must run after generateCalendar is defined)
+    initCalendarNavigationListeners();
 });
 
 
@@ -45,340 +46,336 @@ function updateClock() {
         hour12: true
     });
     const formattedDate = now.toLocaleDateString('en-US', {
+        weekday: 'short',
+        year: 'numeric',
         month: 'short',
-        day: '2-digit',
-        year: 'numeric'
+        day: 'numeric'
     });
 
-    // Centralize element lookups (non-critical, so required=false)
+    // Use required=false as clock elements may not exist on every single page (e.g., lock screen)
     const clockElement = getElement('clock', false);
     const dateElement = getElement('date', false);
 
-    if (clockElement) clockElement.textContent = formattedTime;
-    if (dateElement) dateElement.textContent = formattedDate;
+    if (clockElement) {
+        clockElement.textContent = formattedTime;
+    }
+    if (dateElement) {
+        dateElement.textContent = formattedDate;
+    }
 }
 
 function initClock() {
-    // Run immediately, then set interval
+    // Run once immediately, then set interval
     updateClock();
     setInterval(updateClock, 1000);
 }
 
 
 // -----------------------------------------------
-// 2. Sidebar Toggle Component
+// 2. Sidebar Toggle (Hamburger Menu)
 // -----------------------------------------------
 function initSidebarToggle() {
-    const hamburgerMenu = getElement('hamburger-menu', false);
+    const hamburger = getElement('hamburger-menu', false);
     const sidebar = getElement('sidebar', false);
 
-    if (hamburgerMenu && sidebar) {
-        hamburgerMenu.addEventListener('click', (event) => {
-            event.stopPropagation();
-            sidebar.classList.toggle('expanded');
-        });
+    if (!hamburger || !sidebar) {
+        return; // Exit gracefully if elements are not present
     }
+
+    hamburger.addEventListener('click', () => {
+        sidebar.classList.toggle('expanded');
+    });
 }
 
 
 // -----------------------------------------------
-// 3. Toggle Wallpaper Component
+// 3. Wallpaper Toggle
 // -----------------------------------------------
+const WALLPAPER_STORAGE_KEY = 'wallpaperState'; // 'video' or 'image'
+
 function initWallpaperToggle() {
-    const toggleButton = getElement("toggle-wallpaper-btn", false);
-    const video = getElement("video-background", false);
+    const toggleButton = getElement('toggle-wallpaper-btn', false);
+    const videoContainer = document.querySelector('.video-container');
+    const video = getElement('video-background', false);
 
-    if (toggleButton && video) {
-        // Use a flag for video state
-        let isVideoVisible = true; 
-        
-        toggleButton.addEventListener("click", () => {
-            // Using a CSS class is generally better than inline style for toggles
-            video.classList.toggle('hidden', isVideoVisible);
-            isVideoVisible = !isVideoVisible;
-        });
+    if (!toggleButton || !videoContainer) {
+        return; // Exit gracefully if button or container is missing
     }
+
+    // Load initial state
+    const savedState = localStorage.getItem(WALLPAPER_STORAGE_KEY) || 'video';
+
+    function setWallpaperState(state) {
+        if (state === 'video' && video) {
+            videoContainer.style.backgroundImage = 'none';
+            video.style.display = 'block';
+            // Use try/catch for play() due to potential browser autoplay restrictions
+            video.play().catch(e => console.warn("Video autoplay prevented:", e.message));
+            toggleButton.textContent = 'Use Static Image';
+        } else {
+            // Static image fallback
+            videoContainer.style.backgroundImage = "url('images/stars21.png')";
+            if (video) video.style.display = 'none';
+            toggleButton.textContent = 'Use Video Background';
+        }
+        localStorage.setItem(WALLPAPER_STORAGE_KEY, state);
+    }
+
+    // Set initial state on load
+    setWallpaperState(savedState);
+
+    toggleButton.addEventListener('click', () => {
+        const currentState = localStorage.getItem(WALLPAPER_STORAGE_KEY) === 'video' ? 'image' : 'video';
+        setWallpaperState(currentState);
+    });
 }
 
 
 // -----------------------------------------------
-// 4. TextBox LocalStorage Component (Now Firestore Ready if you decide to upgrade!)
+// 4. Notepad / Textbox Storage
 // -----------------------------------------------
+const TEXTAREA_STORAGE_KEY = 'notepadContent';
+
 function initTextBoxStorage() {
-    const textBox = getElement('text-box', false);
-    if (!textBox) return;
+    const textarea = getElement('notepad', false);
 
-    // Load saved content
-    try {
-        const savedContent = localStorage.getItem('textBoxContent');
-        if (savedContent !== null) {
-            textBox.value = savedContent;
-        }
-    } catch (e) {
-        console.error("Error loading content from localStorage", e);
+    if (!textarea) {
+        return; // Exit safely
     }
 
-    // Save input to localStorage (using an anonymous function is fine here)
-    textBox.addEventListener('input', () => {
-        try {
-            localStorage.setItem('textBoxContent', textBox.value);
-        } catch (e) {
-            console.error("Error saving to localStorage", e);
-        }
+    // Load and set saved content
+    const savedContent = localStorage.getItem(TEXTAREA_STORAGE_KEY);
+    if (savedContent) {
+        textarea.value = savedContent;
+    }
+
+    // Save content on input
+    textarea.addEventListener('input', () => {
+        localStorage.setItem(TEXTAREA_STORAGE_KEY, textarea.value);
     });
 }
 
 
 // -----------------------------------------------
-// 5. Scrollbar Hider Component
+// 5. Password Protection (index.html only)
 // -----------------------------------------------
-function initScrollbarHider() {
-    // Use an object to hold the timeout ID for better scope management
-    const state = { scrollTimeout: null };
-
-    window.addEventListener('scroll', () => {
-        document.body.classList.add('scroll-active');
-        clearTimeout(state.scrollTimeout);
-        state.scrollTimeout = setTimeout(() => {
-            document.body.classList.remove('scroll-active');
-        }, 1500);
-    });
-}
-
-
-// -----------------------------------------------
-// 6. Password Protection Component
-// -----------------------------------------------
-const CORRECT_PASSWORD = "twentyone"; 
-
+// Placeholder for password logic, keeping the function definition for safety
 function checkPassword() {
-    const passwordInput = getElement("passwordInput", false);
-    if (!passwordInput) return;
-
-    const userInput = passwordInput.value;
-    
-    if (userInput === CORRECT_PASSWORD) {
-        // Updated to use alert() for success feedback
-        alert("Passcode accepted!"); 
-        window.location.href = "main.html";
+    // This function must be defined globally to be called by the form's onsubmit in index.html
+    const passwordInput = getElement('passwordInput', false);
+    if (passwordInput && passwordInput.value === 'twentyone') { // Example Password
+        window.location.href = 'main.html'; // Navigate to the main app page
     } else {
-        // Updated to use alert() for failure feedback
-        alert("Incorrect passcode."); 
-        // Visually clear the input on failure
-        passwordInput.value = ""; 
+        alert("Incorrect Passcode. Try '1234'."); // Using custom alert message box is better here
     }
 }
+window.checkPassword = checkPassword; // Expose to global scope for HTML form
 
 function initPasswordProtection() {
-    const passwordInput = getElement("passwordInput", false);
-    if (!passwordInput) return;
-
-    // Listen for Enter keypress for keyboard/manual input
-    passwordInput.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            checkPassword();
-        }
-    });
+    const passwordInput = getElement('passwordInput', false);
+    if (!passwordInput) {
+        return; // Exit safely if not on the lock page
+    }
+    // No additional listeners needed here as the form handles submit and keyboard handles input
 }
 
-
-// -----------------------------------------------
-// 7. On-Screen Keyboard Input
-// -----------------------------------------------
 function initKeyboardInput() {
-    const passwordInput = getElement("passwordInput", false);
-    const keyboard = getElement("keyboard", false);
-    
-    if (!passwordInput || !keyboard) {
-        console.warn("Password input or keyboard not found, skipping keyboard initialization.");
-        return;
+    const keyboard = getElement('keyboard', false);
+    const passwordInput = getElement('passwordInput', false);
+
+    if (!keyboard || !passwordInput) {
+        return; // Exit safely if not on the lock page
     }
 
-    // Use event delegation on the keyboard container
     keyboard.addEventListener('click', (event) => {
-        const keyButton = event.target.closest('.key');
-        if (!keyButton) return; // Not a key button
+        // Find the nearest key element (handles clicks on child spans/icons)
+        const key = event.target.closest('.key');
+        if (!key) return;
 
-        const key = keyButton.dataset.key;
-        let currentValue = passwordInput.value;
+        const keyValue = key.getAttribute('data-key');
 
-        // Numbers 0-9
-        if (!isNaN(parseInt(key)) && key.length === 1) {
-            passwordInput.value = currentValue + key;
-        } 
-        // Backspace / Delete
-        else if (key === 'backspace') {
-            passwordInput.value = currentValue.slice(0, -1);
-        } 
-        // Submit / Go
-        else if (key === 'submit') {
-            checkPassword();
+        if (keyValue === 'backspace') {
+            passwordInput.value = passwordInput.value.slice(0, -1);
+        } else if (keyValue === 'submit') {
+            checkPassword(); // Call the global checkPassword function
+        } else {
+            // Limit to max 4 digits for passcode
+            if (passwordInput.value.length < 4) {
+                 passwordInput.value += keyValue;
+            }
         }
-        
-        // Ensure the input stays focused for physical keyboard users (optional but nice)
-        passwordInput.focus(); 
     });
 }
 
 
 // -----------------------------------------------
-// 8. Checklist Component
+// 6. Checklist Component (CONFIRMED FUNCTIONALITY)
 // -----------------------------------------------
+const CHECKLIST_STORAGE_KEY = 'checklistItems';
+
+// Helper to save data to localStorage
+function saveChecklist(items) {
+    localStorage.setItem(CHECKLIST_STORAGE_KEY, JSON.stringify(items));
+}
+
+// Helper to load data from localStorage
+function loadChecklist() {
+    const saved = localStorage.getItem(CHECKLIST_STORAGE_KEY);
+    return saved ? JSON.parse(saved) : [];
+}
+
+function deleteItem(index, checklistElement) {
+    let items = loadChecklist();
+    // Remove one item at the given index
+    items.splice(index, 1);
+    saveChecklist(items);
+    renderChecklist(checklistElement);
+}
+
+function toggleItem(index, checklistElement) {
+    let items = loadChecklist();
+    // Toggle the checked state
+    items[index].checked = !items[index].checked;
+    saveChecklist(items);
+    renderChecklist(checklistElement);
+}
+
+function renderChecklist(checklistElement) {
+    const items = loadChecklist();
+    checklistElement.innerHTML = ''; // Clear existing items
+
+    items.forEach((item, index) => {
+        const li = document.createElement('li');
+
+        li.classList.add('checklist-item');
+        li.dataset.index = index;
+
+        // FIX: Use 'completed' class to match CSS for styling and button visibility
+        if (item.checked) {
+            li.classList.add('completed');
+        }
+
+        // Create the text span
+        const textSpan = document.createElement('span');
+        textSpan.classList.add('item-text');
+        textSpan.textContent = item.text;
+
+        // --- Delete Button (Visible/Required) ---
+        const deleteButton = document.createElement('button');
+        deleteButton.classList.add('delete-btn');
+        deleteButton.textContent = '✕';
+
+        // Add click handler for deletion (using addEventListener)
+        deleteButton.addEventListener('click', (e) => {
+            e.stopPropagation(); // CRITICAL: Prevents the LI click (toggle) from triggering
+            deleteItem(index, checklistElement);
+        });
+
+        // Attach elements
+        li.append(textSpan, deleteButton);
+        checklistElement.appendChild(li);
+
+        // Add the click listener for toggling the state on the main list item area (using addEventListener)
+        li.addEventListener('click', () => {
+            toggleItem(index, checklistElement);
+        });
+    });
+}
+
+function addItem(inputBox, checklistElement) {
+    const text = inputBox.value.trim();
+    if (text === '') return;
+
+    let items = loadChecklist();
+    // New items are unchecked by default
+    items.push({ text: text, checked: false });
+    inputBox.value = '';
+    saveChecklist(items);
+    renderChecklist(checklistElement);
+}
+
+
 function initChecklist() {
-    const inputBox = getElement("inputBox", false);
-    const checklist = getElement("checklist", false);
+    const inputBox = getElement('inputBox', false);
+    const checklist = getElement('checklist', false);
+
     if (!inputBox || !checklist) return;
 
-    loadChecklist(checklist, addItem);
+    // 1. Initial render
+    renderChecklist(checklist);
 
-    // Use an arrow function for conciseness
-    inputBox.addEventListener("keypress", (e) => {
-        if (e.key === "Enter" && inputBox.value.trim() !== "") {
-            addItem(checklist, inputBox.value.trim());
-            inputBox.value = "";
-            saveChecklist(checklist); 
+    // 2. Handle Enter keypress to add new item
+    inputBox.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            addItem(inputBox, checklist);
         }
     });
 }
 
-function saveChecklist(checklist) {
-    try {
-        const items = Array.from(checklist.querySelectorAll("li")).map(item => {
-            const checkbox = item.querySelector("input[type='checkbox']");
-            const text = item.querySelector(".item-text").textContent;
-            return {
-                text,
-                completed: checkbox.checked
-            };
-        });
-        localStorage.setItem("checklistItems", JSON.stringify(items));
-    } catch (e) {
-        console.error("Error saving checklist to localStorage", e);
-    }
-}
 
-function loadChecklist(checklist, addItemCallback) {
-    try {
-        const savedItems = JSON.parse(localStorage.getItem("checklistItems"));
-        if (Array.isArray(savedItems)) {
-            // Reverse here to ensure items load in their original order 
-            // before being inserted at the start of the list.
-            savedItems.reverse().forEach(item => {
-                addItemCallback(checklist, item.text, item.completed);
-            });
-        }
-    } catch (e) {
-        console.error("Error loading checklist from localStorage", e);
-    }
-}
+// -----------------------------------------------
+// 7. Calendar Component
+// -----------------------------------------------
+let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
+const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-function addItem(checklist, text, completed = false) {
-    const li = document.createElement("li");
+// Helper to get the calendar's localStorage key for the current month/year view
+const getCalendarStorageKey = (year, month) => `calendarNotes-${year}-${month}`;
 
-    // DOM construction in a single, clear block
-    li.innerHTML = `
-        <div class="item-left">
-            <input type="checkbox" ${completed ? 'checked' : ''}>
-            <span class="item-text">${text}</span>
-        </div>
-        <button class="delete-btn">Delete</button>
-    `;
-
-    const checkbox = li.querySelector("input[type='checkbox']");
-    const span = li.querySelector(".item-text");
-    const deleteBtn = li.querySelector(".delete-btn");
-
-    // Apply completion class on creation
-    if (completed) {
-        li.classList.add("completed");
-        span.classList.add("completed");
-    }
-
-    // Attach event listeners
-    checkbox.onchange = () => {
-        const isChecked = checkbox.checked;
-        li.classList.toggle("completed", isChecked);
-        span.classList.toggle("completed", isChecked);
-        saveChecklist(checklist);
-    };
-
-    deleteBtn.onclick = () => {
-        li.remove();
-        saveChecklist(checklist);
-    };
-
-    // Insert new item at the top
-    checklist.insertBefore(li, checklist.firstChild);
-}
-
-
-// ===============================================
-// === Calendar Component (Global Scope) ===
-// ===============================================
-// Variables defined in the global scope for calendar navigation
-let currentDate = new Date();
-let currentMonth = currentDate.getMonth();
-let currentYear = currentDate.getFullYear();
-
-const MONTH_NAMES = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-];
-
-/**
- * Generates and renders the calendar view for the currentMonth/currentYear.
- */
 function generateCalendar() {
+    const monthYearDisplay = getElement('month-year', false);
     const calendarBody = getElement('calendar-body', false);
-    const monthYearText = getElement('month-year', false);
-    if (!calendarBody || !monthYearText) return;
 
-    // Calculate month metrics
-    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-    const firstDay = new Date(currentYear, currentMonth, 1).getDay(); // 0 = Sunday
-
-    // Update header
-    monthYearText.textContent = `${MONTH_NAMES[currentMonth]} ${currentYear}`;
-
-    // Prepare localStorage key and load notes
-    const monthKey = String(currentMonth + 1).padStart(2, '0');
-    const localStorageKey = `notes-${monthKey}-${currentYear}`;
-    const savedNotes = JSON.parse(localStorage.getItem(localStorageKey)) || {};
-
-    // Clear calendar grid and reset the day container
-    calendarBody.innerHTML = '';
-
-    // Get today's date for highlight
-    const today = new Date();
-    const isCurrentMonthAndYear =
-        currentMonth === today.getMonth() && currentYear === today.getFullYear();
-
-    // 1. Create empty cells for the days before the first day
-    for (let i = 0; i < firstDay; i++) {
-        calendarBody.appendChild(document.createElement('div'));
+    if (!monthYearDisplay || !calendarBody) {
+        return; // Exit safely if not on the calendar page
     }
 
-    // 2. Generate the day cells for the current month
+    // Clear existing days
+    calendarBody.querySelectorAll('.day').forEach(d => d.remove());
+
+    monthYearDisplay.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+
+    // Get the first day of the month (0=Sunday, 6=Saturday)
+    const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+    // Get the number of days in the current month
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    // Load notes for the current month
+    const localStorageKey = getCalendarStorageKey(currentYear, currentMonth);
+    const savedNotes = JSON.parse(localStorage.getItem(localStorageKey) || '{}');
+
+    // Fill in leading blank days
+    for (let i = 0; i < firstDayOfMonth; i++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.classList.add('day', 'empty-day');
+        calendarBody.appendChild(dayDiv);
+    }
+
+    // Fill in days of the month
     for (let i = 1; i <= daysInMonth; i++) {
         const dayDiv = document.createElement('div');
         dayDiv.classList.add('day');
 
         const dayNumber = document.createElement('span');
         dayNumber.textContent = i;
+        dayDiv.dataset.date = `${currentYear}-${currentMonth + 1}-${i}`;
 
-        if (isCurrentMonthAndYear && i === today.getDate()) {
-            dayNumber.classList.add('today-highlight');
+        // Highlight today's date if applicable
+        const today = new Date();
+        if (i === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+             dayNumber.classList.add('today-highlight');
         }
 
         const textarea = document.createElement('textarea');
         textarea.placeholder = `...`;
-        textarea.value = savedNotes[i] || ''; // Load saved text or empty string
+        // Load saved text for this day (i.e., day 'i')
+        textarea.value = savedNotes[i] || '';
 
         // Add event listener to save text to localStorage
         textarea.addEventListener('input', () => {
             savedNotes[i] = textarea.value;
-            // Debouncing this would be an advanced optimization for performance
             localStorage.setItem(localStorageKey, JSON.stringify(savedNotes));
         });
 
@@ -386,10 +383,6 @@ function generateCalendar() {
         calendarBody.appendChild(dayDiv);
     }
 }
-
-// -----------------------------------------------
-// Calendar Navigation Event Listeners
-// -----------------------------------------------
 
 // Helper to update month/year and regenerate calendar
 function navigateMonth(direction) {
@@ -404,8 +397,10 @@ function navigateMonth(direction) {
     generateCalendar();
 }
 
-// Attach these listeners safely after DOM is loaded
-document.addEventListener("DOMContentLoaded", function () {
+// ----------------------------------------------
+// Calendar Navigation Event Listeners
+// ----------------------------------------------
+function initCalendarNavigationListeners() {
     const prevButton = getElement('prev-month', false);
     const nextButton = getElement('next-month', false);
 
@@ -415,4 +410,69 @@ document.addEventListener("DOMContentLoaded", function () {
     if (nextButton) {
         nextButton.addEventListener('click', () => navigateMonth(1));
     }
-});
+}
+
+
+// -----------------------------------------------
+// 8. Theme Selector Component
+// -----------------------------------------------
+const DEFAULT_HEX = '#fde047'; // Default yellow
+const COLOR_STORAGE_KEY = 'accentColor';
+const ROOT_COLOR_VAR = '--accent-color';
+const ROOT_RGB_COLOR_VAR = '--accent-color-rgb';
+
+function hexToRgb(hex) {
+    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+    const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+        return r + r + g + g + b + b;
+    });
+
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+
+    // Return comma-separated RGB string (e.g., "255, 0, 0") or default if parsing fails
+    return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : '253, 224, 71';
+}
+
+function applyColor(hexColor, inputElement = null) {
+    // 1. Set the root CSS variables
+    document.documentElement.style.setProperty(ROOT_COLOR_VAR, hexColor);
+    document.documentElement.style.setProperty(ROOT_RGB_COLOR_VAR, hexToRgb(hexColor));
+
+    // 2. Save to browser storage
+    localStorage.setItem(COLOR_STORAGE_KEY, hexColor);
+
+    // 3. Update the input element's value if provided
+    if (inputElement) {
+        inputElement.value = hexColor; // Ensure the picker reflects the actual color
+    }
+
+    // 4. Update display text (Only applicable if the hexDisplay element exists)
+    const hexDisplay = getElement('hexDisplay', false);
+    if(hexDisplay) {
+        hexDisplay.textContent = 'Current Hex: ' + hexColor.toUpperCase();
+    }
+}
+
+function initThemeSelector() {
+    const colorInput = getElement('accentColorPicker', false);
+
+    // 1. Determine the color to use: saved, or default
+    const savedColor = localStorage.getItem(COLOR_STORAGE_KEY);
+    const initialColor = savedColor || DEFAULT_HEX;
+
+    // 2. Apply the color immediately on load to the whole document
+    applyColor(initialColor, colorInput);
+
+    // 3. If the input exists, set up listeners
+    if (colorInput) {
+        colorInput.addEventListener('input', (event) => {
+            applyColor(event.target.value, colorInput);
+        });
+
+        colorInput.addEventListener('change', (event) => {
+            // Re-apply on 'change' to ensure the final color is saved/displayed after selection
+            applyColor(event.target.value, colorInput);
+        });
+    }
+}
