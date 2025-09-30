@@ -81,125 +81,68 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 1500);
     });
 
-    // Function to show the custom message modal (replaces alert())
-const showMessage = (title, message) => {
-    const messageModal = document.getElementById('message-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalMessage = document.getElementById('modal-message');
-    
-    modalTitle.textContent = title;
-    modalMessage.textContent = message;
-    
-    // NOTE: Removed all button styling logic to adhere to the request.
-    
-    messageModal.classList.add('show');
-};
+   // 📌 Wait for DOM to load
+document.addEventListener("DOMContentLoaded", function () {
+    const passwordInput = document.getElementById("passwordInput");
+    const keys = document.querySelectorAll("#numericKeyboard .key");
+    const keyClear = document.getElementById("keyClear");
+    const keyDelete = document.getElementById("keyDelete");
+    const keyEnter = document.getElementById("keyEnter");
 
-// Function to hide the custom message modal
-const hideMessage = () => {
-    document.getElementById('message-modal').classList.remove('show');
-};
+    const correctPassword = "twentyone"; // 🔒 Insecure for production, okay for demos
 
-// Define the password input globally for both functions to use
-const passwordInput = document.getElementById("passwordInput");
+    // 📌 Keyboard Button Press Handling
+    keys.forEach(key => {
+        key.addEventListener("click", () => {
+            passwordInput.value += key.textContent;
+        });
+    });
 
-// 📌 Password Validation Function (Globally accessible for the form submit)
-window.checkPassword = () => {
-    const userInput = passwordInput.value;
-    // Correct password is "twentyone"
-    const correctPassword = "twentyone"; 
-    
-    console.log("Checking password...");
-
-    if (userInput === correctPassword) {
-        console.log("Password correct, Access Granted.");
-        // Using modal instead of window.location.href for environment compatibility
-        showMessage('Access Granted', `Passcode verified! You would now be redirected to main.html.`);
-        passwordInput.value = ""; // Clear on success
-    } else {
-        console.log("Password incorrect.");
-        // Using custom message modal instead of alert()
-        showMessage('Access Denied', 'Incorrect passcode.');
-        passwordInput.value = "";
+    // 📌 Clear input
+    if (keyClear) {
+        keyClear.addEventListener("click", () => {
+            passwordInput.value = "";
+        });
     }
-};
 
-document.addEventListener('DOMContentLoaded', () => {
-    const keyboard = document.getElementById('keyboard');
-    const messageModal = document.getElementById('message-modal');
-    const modalCloseButton = document.getElementById('modal-close-button');
-    
-    // 1. Physical Keyboard "Enter" key listener 
+    // 📌 Delete last character
+    if (keyDelete) {
+        keyDelete.addEventListener("click", () => {
+            passwordInput.value = passwordInput.value.slice(0, -1);
+        });
+    }
+
+    // 📌 Enter key - check password
+    if (keyEnter) {
+        keyEnter.addEventListener("click", checkPassword);
+    }
+
+    // 📌 Handle "Enter" key on physical keyboard
     if (passwordInput) {
-        // Focus on input to allow physical key presses 
-        passwordInput.focus(); 
-        passwordInput.addEventListener("keydown", function(event) {
+        passwordInput.addEventListener("keydown", function (event) {
             if (event.key === "Enter") {
                 event.preventDefault();
-                window.checkPassword();
+                checkPassword();
             }
         });
     }
 
+    // 📌 Password check logic
+    function checkPassword() {
+        const userInput = passwordInput.value;
 
-    // 2. Virtual Keyboard Click Handler
-    keyboard.addEventListener('click', (event) => {
-        const target = event.target;
-        
-        // Only proceed if a button with 'data-key' was clicked
-        if (target.classList.contains('key')) {
-            const key = target.getAttribute('data-key');
-            let currentValue = passwordInput.value;
-            
-            // Flash feedback for press
-            target.classList.add('active-press');
-            setTimeout(() => target.classList.remove('active-press'), 100);
+        console.log("Checking password...");
 
-            // Handle different key types
-            switch (key) {
-                case '0':
-                case '1':
-                case '2':
-                case '3':
-                case '4':
-                case '5':
-                case '6':
-                case '7':
-                case '8':
-                case '9':
-                    // Append number, respecting the input's maxlength attribute (10)
-                    if (passwordInput.value.length < (passwordInput.maxLength > 0 ? passwordInput.maxLength : 10)) {
-                        passwordInput.value += key;
-                    }
-                    break;
-
-                case 'backspace':
-                    // Remove the last character
-                    passwordInput.value = currentValue.slice(0, -1);
-                    break;
-
-                case 'submit':
-                    // Handle the 'Go' action by calling the checkPassword function
-                    window.checkPassword(); 
-                    break;
-
-                default:
-                    // Ignore other keys
-                    break;
-            }
+        if (userInput === correctPassword) {
+            console.log("Password correct, redirecting...");
+            window.location.href = "main.html";
+        } else {
+            console.log("Password incorrect.");
+            alert("Incorrect passcode.");
+            passwordInput.value = "";
         }
-    });
-
-    // 3. Modal Close Listeners
-    modalCloseButton.addEventListener('click', hideMessage);
-    messageModal.addEventListener('click', (event) => {
-        // Allows closing modal by clicking the overlay itself
-        if (event.target === messageModal) {
-            hideMessage();
-        }
-    });
+    }
 });
-
 
     // 📌 Checklist App
     const inputBox = document.getElementById("inputBox");
