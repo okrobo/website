@@ -287,7 +287,7 @@ function addItem(inputBox, checklistElement) {
     if (text === '') return;
 
     let items = loadChecklist();
-    // New items are unchecked by default
+    // New items are unchecked by 
     items.push({ text: text, checked: false });
     inputBox.value = '';
     saveChecklist(items);
@@ -416,7 +416,7 @@ function initCalendarNavigationListeners() {
 // -----------------------------------------------
 // 8. Theme Selector Component
 // -----------------------------------------------
-const DEFAULT_HEX = '#fde047'; // Default yellow
+const DEFAULT_HEX = '#ffffff'; // Default white
 const COLOR_STORAGE_KEY = 'accentColor';
 const ROOT_COLOR_VAR = '--accent-color';
 const ROOT_RGB_COLOR_VAR = '--accent-color-rgb';
