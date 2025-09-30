@@ -81,45 +81,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 1500);
     });
 
-   // 📌 Wait for DOM to load
-document.addEventListener("DOMContentLoaded", function () {
+    // 📌 Enter submits password
     const passwordInput = document.getElementById("passwordInput");
-    const keys = document.querySelectorAll("#numericKeyboard .key");
-    const keyClear = document.getElementById("keyClear");
-    const keyDelete = document.getElementById("keyDelete");
-    const keyEnter = document.getElementById("keyEnter");
-
-    const correctPassword = "twentyone"; // 🔒 Insecure for production, okay for demos
-
-    // 📌 Keyboard Button Press Handling
-    keys.forEach(key => {
-        key.addEventListener("click", () => {
-            passwordInput.value += key.textContent;
-        });
-    });
-
-    // 📌 Clear input
-    if (keyClear) {
-        keyClear.addEventListener("click", () => {
-            passwordInput.value = "";
-        });
-    }
-
-    // 📌 Delete last character
-    if (keyDelete) {
-        keyDelete.addEventListener("click", () => {
-            passwordInput.value = passwordInput.value.slice(0, -1);
-        });
-    }
-
-    // 📌 Enter key - check password
-    if (keyEnter) {
-        keyEnter.addEventListener("click", checkPassword);
-    }
-
-    // 📌 Handle "Enter" key on physical keyboard
     if (passwordInput) {
-        passwordInput.addEventListener("keydown", function (event) {
+        passwordInput.addEventListener("keydown", function(event) {
             if (event.key === "Enter") {
                 event.preventDefault();
                 checkPassword();
@@ -127,12 +92,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 📌 Password check logic
+    // 📌 Password Validation Function
     function checkPassword() {
         const userInput = passwordInput.value;
-
+        const correctPassword = "twentyone";
         console.log("Checking password...");
-
         if (userInput === correctPassword) {
             console.log("Password correct, redirecting...");
             window.location.href = "main.html";
@@ -142,7 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
             passwordInput.value = "";
         }
     }
-});
 
     // 📌 Checklist App
     const inputBox = document.getElementById("inputBox");
@@ -340,4 +303,3 @@ document.getElementById('next-month').addEventListener('click', function () {
 
 // Generate the initial calendar
 window.onload = generateCalendar;
-
